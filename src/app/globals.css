@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #F7F7F7;
+  --foreground: #222222;
+}
+
+@theme {
+  --color-airbnb-pink: #FF385C;
+  --color-airbnb-pink-hover: #E31C5F;
+  --color-airbnb-charcoal: #222222;
+  --color-airbnb-gray: #717171;
+  --color-airbnb-bg: #F7F7F7;
+  --color-airbnb-border: #DDDDDD;
+  --color-airbnb-border-light: #EAEAEA;
+  
+  --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+body {
+  background-color: var(--color-airbnb-bg);
+  color: var(--color-airbnb-charcoal);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
