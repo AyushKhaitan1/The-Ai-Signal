@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📡 The AI Signal — Atlas Intelligence
 
-## Getting Started
+A premium, highly interactive intelligence dashboard cataloging foundational model releases, venture funding rounds, and cognitive developer tools in the global AI ecosystem. 
 
-First, run the development server:
+This portal is styled with strict **Airbnb design tokens** and built on a production-ready stack: **Next.js (App Router) + TypeScript + Tailwind CSS v4**.
 
+---
+
+## ✨ Key Features
+
+* **🛡️ Locked Layout (Zero Shifting)**: Viewport-optimized shell with an identically structured Header navbar, category Subheader navigation, and dynamic sticky Footer.
+* **🗳️ Interactive Client-Side Upvotes**: Click-to-upvote mechanics highlight signals in the signature Airbnb coral-pink (`#FF385C`), persisting values on reload via `localStorage`.
+* **🔍 Live Global Search**: Fully integrated search capsule in the header that filters category feeds dynamically by company name, category, title, or domain.
+* **📥 Signal Link Submission**: Interactive glassmorphic form for submitting new AI signals. Auto-calculates domains and prepends them to the home feed in real-time.
+* **💬 Recursive Comment Discussions**: Detailed `/comments/[slug]` route with nested reply trees allowing comment submissions.
+* **🎮 Crawler Ingestion Console**: Monospace scraper console simulation running in an optimized React frame with custom controllers (Pause/Resume, Clear, Speed multi-pliers, and Severity Filter Tabs).
+* **✉️ Weekly Newsletter**: Curation issue page featuring startup spotlights, funding timelines, job listings, and an interactive email subscription widget.
+
+---
+
+## 🛠️ Technology Stack
+
+* **Core Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+* **Icons**: [Lucide React](https://lucide.dev/)
+* **Fonts**: Google Fonts (`Outfit`, `Inter`, `Playfair Display`)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Installation
+Clone the repository and install the project dependencies:
+```bash
+npm install
+```
+
+### 2. Run the Development Server
+Launch the development compiler (with Turbopack):
 ```bash
 npm run dev
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx next dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to inspect the portal.
+
+### 3. Build for Production
+Verify typescript compilation, optimization checks, and generate static site pages:
+```bash
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 Project Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+├── public/                 # Static assets & icons
+├── src/
+│   ├── app/                # Next.js App Router Pages
+│   │   ├── comments/       # Dynamic Comment/Discussion threads
+│   │   ├── funding/        # Funding category feed
+│   │   ├── logs/           # Monospace Ingestion Console
+│   │   ├── models/         # Foundational Models category feed
+│   │   ├── newsletter/     # Curation Recaps issue view
+│   │   ├── research/       # Research papers category feed
+│   │   ├── startups/       # Startups directory & dynamic profiles
+│   │   ├── submit/         # Glassmorphic Link Submission Form
+│   │   ├── tools/          # Developer Tools category feed
+│   │   ├── globals.css     # Tailwind directive imports & theme variables
+│   │   └── layout.tsx      # Global wrapper containing shell structure
+│   ├── components/         # Shared UI elements
+│   │   ├── Header.tsx      # Locked top header & global search capsule
+│   │   ├── Subheader.tsx   # Horizontal scroll category pills
+│   │   ├── Sidebar.tsx     # Widget boxes (Trending, Scraper log stream, Curation)
+│   │   ├── NewsRow.tsx     # Standard news signal row with upvote hooks
+│   │   └── Footer.tsx      # Dynamic page-bottom layout
+│   ├── context/
+│   │   └── SignalContext.tsx # Client-side state manager (upvotes, search, comments)
+│   └── data/               # Static dataset schemas
+│       ├── news.ts         # Pre-seeded news records
+│       └── startups.ts     # Pre-seeded startup profiles
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🌐 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This application is ready to be hosted on **Vercel** with integrated CI/CD hooks:
+```bash
+npx vercel
+```
+Or link it to your Vercel account directly through the web dashboard import workflow.
