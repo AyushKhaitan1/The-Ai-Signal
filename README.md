@@ -82,13 +82,3 @@ npm run build
 │       ├── news.ts         # Pre-seeded news records
 │       └── startups.ts     # Pre-seeded startup profiles
 ```
-
----
-
-## 🌐 Deployment
-
-This application is ready to be hosted on **Vercel** with integrated CI/CD hooks:
-```bash
-npx vercel
-```
-Or link it to your Vercel account directly through the web dashboard import workflow.
