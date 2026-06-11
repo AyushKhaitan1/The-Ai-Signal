@@ -24,7 +24,7 @@ export default function Header() {
             </defs>
           </svg>
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight text-airbnb-charcoal">The AI Signal</span>
+            <span className="text-lg font-bold tracking-tight text-airbnb-charcoal">orbit-News</span>
             <span className="text-[10px] font-bold text-airbnb-pink uppercase tracking-wider -mt-1">Atlas Intelligence</span>
           </div>
         </Link>

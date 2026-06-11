@@ -1,4 +1,4 @@
-# 📡 The AI Signal — Atlas Intelligence
+# 📡 orbit-News — Atlas Intelligence
 
 A premium, highly interactive intelligence dashboard cataloging foundational model releases, venture funding rounds, and cognitive developer tools in the global AI ecosystem. 
 

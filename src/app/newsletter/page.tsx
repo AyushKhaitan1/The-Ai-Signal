@@ -49,7 +49,7 @@ export default function NewsletterPage() {
             </p>
             
             <div className="pt-2 flex items-center justify-center space-x-4 text-[10px] text-zinc-500 uppercase tracking-wider font-semibold">
-              <span>By Sama & The AI Signal Team</span>
+              <span>By Sama & The orbit-News Team</span>
               <span>•</span>
               <span>7 min read</span>
             </div>

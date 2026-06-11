@@ -43,7 +43,7 @@ const airbnbCereal = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "The AI Signal | Atlas Intelligence",
+  title: "orbit-News | Atlas Intelligence",
   description: "A premium intelligence platform for the global AI ecosystem.",
 };
 
