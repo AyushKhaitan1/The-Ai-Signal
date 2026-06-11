@@ -100,13 +100,13 @@ export default function Sidebar() {
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
         </div>
-        <div className="bg-[#1E1E1E] text-[#D4D4D4] font-mono text-[10px] p-4 rounded-xl space-y-1.5 border border-[#333333] shadow-inner h-36 overflow-y-auto">
-          <div className="text-[#85C46C]">[INFO] crawler_agent: initialized</div>
-          <div className="text-[#D4D4D4]">[INFO] crawling: https://arxiv.org/list/cs.AI</div>
-          <div className="text-[#85C46C]">[SUCCESS] found paper: SSM vs Transformers</div>
-          <div className="text-[#D4D4D4]">[INFO] classifying: Category -&gt; Research</div>
-          <div className="text-[#E5C07B]">[WARN] rate_limit: sleeping for 200ms...</div>
-          <div className="text-[#85C46C]">[SUCCESS] ingested: codestral mamba news</div>
+        <div className="bg-[#FCF9F9] text-airbnb-charcoal font-mono text-[10px] p-4 rounded-xl space-y-1.5 border border-airbnb-border-light shadow-inner h-36 overflow-y-auto">
+          <div><span className="text-[#1E40AF] font-bold">[INFO]</span> <span className="text-airbnb-gray">crawler_agent:</span> initialized</div>
+          <div><span className="text-[#1E40AF] font-bold">[INFO]</span> <span className="text-airbnb-gray">crawling:</span> https://arxiv.org/list/cs.AI</div>
+          <div><span className="text-[#1B5E20] font-bold">[SUCCESS]</span> <span className="text-airbnb-gray">found paper:</span> SSM vs Transformers</div>
+          <div><span className="text-[#1E40AF] font-bold">[INFO]</span> <span className="text-airbnb-gray">classifying:</span> Category &rarr; Research</div>
+          <div><span className="text-[#B45309] font-bold">[WARN]</span> <span className="text-airbnb-gray">rate_limit:</span> sleeping for 200ms...</div>
+          <div><span className="text-[#1B5E20] font-bold">[SUCCESS]</span> <span className="text-airbnb-gray">ingested:</span> codestral mamba news</div>
         </div>
         <div className="mt-4 text-center">
           <Link href="/logs" className="text-xs font-bold text-airbnb-pink hover:underline">

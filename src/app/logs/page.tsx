@@ -113,10 +113,10 @@ export default function LogsPage() {
 
   const getLevelColor = (level: string) => {
     switch (level) {
-      case "SUCCESS": return "text-emerald-400";
-      case "WARN": return "text-amber-400";
-      case "ERROR": return "text-rose-400";
-      default: return "text-cyan-400";
+      case "SUCCESS": return "text-emerald-700 bg-emerald-50 border border-emerald-200/50 px-2 py-0.5 rounded-md text-[10px]";
+      case "WARN": return "text-amber-700 bg-amber-50 border border-amber-200/50 px-2 py-0.5 rounded-md text-[10px]";
+      case "ERROR": return "text-rose-700 bg-rose-50 border border-rose-200/50 px-2 py-0.5 rounded-md text-[10px]";
+      default: return "text-blue-700 bg-blue-50 border border-blue-200/50 px-2 py-0.5 rounded-md text-[10px]";
     }
   };
 
@@ -184,27 +184,27 @@ export default function LogsPage() {
         </div>
 
         {/* Console Box */}
-        <div className="bg-[#18181A] border border-[#27272A] rounded-2xl overflow-hidden shadow-2xl">
+        <div className="bg-white border border-airbnb-border-light rounded-2xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
           {/* Console Top Toolbar */}
-          <div className="bg-[#202022] border-b border-[#27272A] px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          <div className="bg-[#F8F9FA] border-b border-airbnb-border-light px-4 py-3 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-              <span className="text-xs text-[#A1A1AA] font-mono ml-4">crawler_daemon@atlas:~$</span>
+              <div className="w-3 h-3 rounded-full bg-rose-400"></div>
+              <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+              <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
+              <span className="text-xs text-airbnb-gray font-mono ml-4">crawler_daemon@atlas:~$</span>
             </div>
             
             <div className="flex items-center space-x-2 text-xs font-mono">
               {/* Filter Tabs */}
-              <div className="bg-[#18181A] border border-[#27272A] rounded-lg p-0.5 flex">
+              <div className="bg-white border border-airbnb-border-light rounded-lg p-0.5 flex">
                 {["ALL", "INFO", "SUCCESS", "WARN", "ERROR"].map(f => (
                   <button
                     key={f}
                     onClick={() => setFilter(f)}
-                    className={`px-2 py-1 rounded text-[10px] font-bold transition-all ${
+                    className={`px-2 py-1 rounded text-[10px] font-bold transition-all cursor-pointer ${
                       filter === f 
                         ? "bg-airbnb-pink text-white" 
-                        : "text-[#A1A1AA] hover:text-white hover:bg-[#202022]"
+                        : "text-airbnb-gray hover:text-airbnb-charcoal hover:bg-airbnb-bg"
                     }`}
                   >
                     {f}
@@ -213,11 +213,11 @@ export default function LogsPage() {
               </div>
 
               {/* Speed Controller */}
-              <div className="bg-[#18181A] border border-[#27272A] rounded-lg p-0.5 flex">
+              <div className="bg-white border border-airbnb-border-light rounded-lg p-0.5 flex">
                 {[
                   { label: "0.5x", val: 2000 },
                   { label: "1.0x", val: 1000 },
-                  { label: "2.0x", val: 4000 } // Wait, 2.0x means FASTER, which is LESS delay. So let's map correctly
+                  { label: "2.0x", val: 4000 }
                 ].map(s => {
                   let mappedVal = 1000;
                   if (s.label === "0.5x") mappedVal = 1800;
@@ -228,10 +228,10 @@ export default function LogsPage() {
                     <button
                       key={s.label}
                       onClick={() => setSpeed(mappedVal)}
-                      className={`px-2 py-1 rounded text-[10px] font-bold transition-all ${
+                      className={`px-2 py-1 rounded text-[10px] font-bold transition-all cursor-pointer ${
                         speed === mappedVal 
-                          ? "bg-zinc-700 text-white" 
-                          : "text-[#A1A1AA] hover:text-white"
+                          ? "bg-airbnb-charcoal text-white" 
+                          : "text-airbnb-gray hover:text-airbnb-charcoal"
                       }`}
                     >
                       {s.label}
@@ -243,10 +243,10 @@ export default function LogsPage() {
               {/* Pause/Clear Buttons */}
               <button
                 onClick={() => setIsPaused(prev => !prev)}
-                className={`px-3 py-1.5 rounded-lg border font-bold text-[10px] transition-all flex items-center space-x-1 ${
+                className={`px-3 py-1.5 rounded-lg border font-bold text-[10px] transition-all flex items-center space-x-1 cursor-pointer ${
                   isPaused 
-                    ? "bg-emerald-950/80 border-emerald-800 text-emerald-400 hover:bg-emerald-900" 
-                    : "bg-zinc-800 border-zinc-700 text-[#E4E4E7] hover:bg-zinc-700"
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100" 
+                    : "bg-white border-airbnb-border text-airbnb-charcoal hover:bg-airbnb-bg"
                 }`}
               >
                 {isPaused ? (
@@ -264,7 +264,7 @@ export default function LogsPage() {
 
               <button
                 onClick={() => setLogs([])}
-                className="bg-zinc-800 border border-zinc-700 text-[#E4E4E7] hover:bg-zinc-700 px-3 py-1.5 rounded-lg font-bold text-[10px] transition-all"
+                className="bg-white border border-airbnb-border text-airbnb-charcoal hover:bg-airbnb-bg px-3 py-1.5 rounded-lg font-bold text-[10px] transition-all cursor-pointer"
               >
                 Clear
               </button>
@@ -272,21 +272,21 @@ export default function LogsPage() {
           </div>
 
           {/* Console Output Screen */}
-          <div ref={consoleContainerRef} className="p-6 h-[480px] overflow-y-auto font-mono text-xs leading-relaxed space-y-1.5 bg-[#18181A] no-scrollbar">
+          <div ref={consoleContainerRef} className="p-6 h-[480px] overflow-y-auto font-mono text-xs leading-relaxed space-y-2.5 bg-[#FCF9F9] shadow-inner no-scrollbar">
             {filteredLogs.length === 0 ? (
-              <div className="text-zinc-500 h-full flex flex-col items-center justify-center space-y-2">
-                <svg className="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <div className="text-airbnb-gray h-full flex flex-col items-center justify-center space-y-2">
+                <svg className="w-8 h-8 animate-pulse text-airbnb-gray/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 <p>Console is silent. Waiting for next crawler cycle...</p>
               </div>
             ) : (
               filteredLogs.map(log => (
-                <div key={log.id} className="flex items-start space-x-2 hover:bg-zinc-800/40 px-2 py-0.5 rounded transition-all">
-                  <span className="text-zinc-600 select-none">{log.timestamp}</span>
+                <div key={log.id} className="flex items-center space-x-3 hover:bg-airbnb-bg/40 px-2.5 py-1 rounded transition-all">
+                  <span className="text-airbnb-gray/60 select-none text-[10px]">{log.timestamp}</span>
                   <span className={`font-bold shrink-0 min-w-[70px] ${getLevelColor(log.level)}`}>
                     [{log.level}]
                   </span>
-                  <span className="text-purple-400 shrink-0 font-semibold">{log.source}:</span>
-                  <span className="text-[#E4E4E7]">{log.message}</span>
+                  <span className="text-purple-700 shrink-0 font-semibold text-[11px]">{log.source}:</span>
+                  <span className="text-airbnb-charcoal">{log.message}</span>
                 </div>
               ))
             )}

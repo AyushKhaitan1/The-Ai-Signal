@@ -47,7 +47,7 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
   const s = startupsData[item.startup_slug];
 
   return (
-    <div className="flex items-start p-4 bg-white border border-airbnb-border-light rounded-2xl hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)] transition-all duration-200">
+    <div className="flex items-start p-4 hover:bg-[#FFF8F9]/30 transition-all duration-200 border-b border-airbnb-border-light/60 last:border-b-0">
       {/* Rank */}
       <div className="w-6 text-right pr-2 text-sm font-semibold text-airbnb-gray/40 pt-1">
         {rank}
