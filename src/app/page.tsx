@@ -79,20 +79,28 @@ export default function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Side: Real-Time News Feed */}
         <div className="col-span-1 lg:col-span-2 space-y-4">
-          <div className="bg-white border border-airbnb-border-light rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
-            <h1 className="text-xl font-bold tracking-tight text-airbnb-charcoal">Real-Time News Feed</h1>
-            <p className="text-xs text-airbnb-gray mt-1">
+          <div className="bg-airbnb-charcoal text-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-zinc-800 relative overflow-hidden">
+            <div className="absolute right-0 top-0 w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none"></div>
+
+            <h1 className="text-xl font-bold tracking-tight text-white flex items-center space-x-2">
+              <span>Real-Time News Feed</span>
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-airbnb-pink opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-airbnb-pink"></span>
+              </span>
+            </h1>
+            <p className="text-xs text-zinc-400 mt-1">
               Curated intelligence on foundational model releases, startup capital raises, and developer toolkits.
             </p>
 
             {/* Sorting Tabs */}
-            <div className="flex items-center space-x-1.5 mt-4 p-1 bg-airbnb-bg rounded-xl w-fit border border-airbnb-border-light/60">
+            <div className="flex items-center space-x-1.5 mt-4 p-1 bg-[#1A1A1A] rounded-xl w-fit border border-zinc-800">
               <button
                 onClick={() => setActiveTab("hot")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1 cursor-pointer ${
                   activeTab === "hot"
-                    ? "bg-white text-airbnb-charcoal shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-airbnb-border-light/20"
-                    : "text-airbnb-gray hover:text-airbnb-charcoal"
+                    ? "bg-zinc-800 text-white shadow-[0_1px_3px_rgba(0,0,0,0.2)] border border-zinc-700/50"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 <span>🔥</span>
@@ -102,8 +110,8 @@ export default function Home() {
                 onClick={() => setActiveTab("new")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1 cursor-pointer ${
                   activeTab === "new"
-                    ? "bg-white text-airbnb-charcoal shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-airbnb-border-light/20"
-                    : "text-airbnb-gray hover:text-airbnb-charcoal"
+                    ? "bg-zinc-800 text-white shadow-[0_1px_3px_rgba(0,0,0,0.2)] border border-zinc-700/50"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 <span>🆕</span>
@@ -113,8 +121,8 @@ export default function Home() {
                 onClick={() => setActiveTab("top")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1 cursor-pointer ${
                   activeTab === "top"
-                    ? "bg-white text-airbnb-charcoal shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-airbnb-border-light/20"
-                    : "text-airbnb-gray hover:text-airbnb-charcoal"
+                    ? "bg-zinc-800 text-white shadow-[0_1px_3px_rgba(0,0,0,0.2)] border border-zinc-700/50"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 <span>🏆</span>
@@ -124,8 +132,8 @@ export default function Home() {
                 onClick={() => setActiveTab("active")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1 cursor-pointer ${
                   activeTab === "active"
-                    ? "bg-white text-airbnb-charcoal shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-airbnb-border-light/20"
-                    : "text-airbnb-gray hover:text-airbnb-charcoal"
+                    ? "bg-zinc-800 text-white shadow-[0_1px_3px_rgba(0,0,0,0.2)] border border-zinc-700/50"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 <span>💬</span>
@@ -133,20 +141,20 @@ export default function Home() {
               </button>
             </div>
             
-            <div className="flex items-center space-x-6 mt-4 pt-4 border-t border-airbnb-bg text-xs">
+            <div className="flex items-center space-x-6 mt-4 pt-4 border-t border-zinc-800 text-xs">
               <div>
-                <span className="text-airbnb-gray">Signals Tracked:</span>{" "}
-                <span className="font-bold text-airbnb-charcoal">{activeCount}</span>
+                <span className="text-zinc-400">Signals Tracked:</span>{" "}
+                <span className="font-bold text-white">{activeCount}</span>
               </div>
-              <div className="h-4 w-px bg-airbnb-border-light"></div>
+              <div className="h-4 w-px bg-zinc-800"></div>
               <div>
-                <span className="text-airbnb-gray">Max Interest:</span>{" "}
+                <span className="text-zinc-400">Max Interest:</span>{" "}
                 <span className="font-bold text-airbnb-pink">{maxUpvotes} ▲</span>
               </div>
-              <div className="h-4 w-px bg-airbnb-border-light"></div>
+              <div className="h-4 w-px bg-zinc-800"></div>
               <div>
-                <span className="text-airbnb-gray">Active Trend:</span>{" "}
-                <span className="font-bold text-airbnb-charcoal bg-airbnb-bg px-2 py-0.5 rounded">Reasoning & Agents</span>
+                <span className="text-zinc-400">Active Trend:</span>{" "}
+                <span className="font-bold text-zinc-300 bg-zinc-850 px-2 py-0.5 rounded">Reasoning & Agents</span>
               </div>
             </div>
           </div>
