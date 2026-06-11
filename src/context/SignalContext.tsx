@@ -66,6 +66,7 @@ export function SignalProvider({ children }: { children: React.ReactNode }) {
     else if (startupSlug === "mistral") startupName = "Mistral AI";
     else if (startupSlug === "meta") startupName = "Meta AI";
     else if (startupSlug === "xai") startupName = "xAI";
+    else if (startupSlug === "deepseek") startupName = "DeepSeek";
 
     const newSignal: NewsItem = {
       id: Date.now(),
@@ -73,6 +74,7 @@ export function SignalProvider({ children }: { children: React.ReactNode }) {
       url,
       domain,
       category,
+      tags: ["User-Submitted"],
       comments_slug: title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
       startup_slug: startupSlug,
       startup_name: startupName,

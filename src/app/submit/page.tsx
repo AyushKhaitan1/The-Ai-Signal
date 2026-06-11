@@ -99,6 +99,7 @@ export default function SubmitPage() {
                   <option value="mistral">Mistral AI</option>
                   <option value="meta">Meta AI</option>
                   <option value="xai">xAI</option>
+                  <option value="deepseek">DeepSeek</option>
                 </select>
               </div>
             </div>

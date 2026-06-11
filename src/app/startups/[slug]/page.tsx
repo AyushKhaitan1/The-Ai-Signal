@@ -59,17 +59,7 @@ export default async function StartupDetailPage({ params }: PageProps) {
                 </div>
               </div>
               <a
-                href={
-                  slug === "openai" ? "https://openai.com" :
-                  slug === "anthropic" ? "https://anthropic.com" :
-                  slug === "cursor" ? "https://cursor.com" :
-                  slug === "perplexity" ? "https://perplexity.ai" :
-                  slug === "elevenlabs" ? "https://elevenlabs.io" :
-                  slug === "scale" ? "https://scale.com" :
-                  slug === "mistral" ? "https://mistral.ai" :
-                  slug === "meta" ? "https://meta.ai" :
-                  slug === "xai" ? "https://x.ai" : "#"
-                }
+                href={s.website || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white font-bold px-6 py-2.5 rounded-full text-xs transition-all shadow-[0_1px_2px_rgba(0,0,0,0.08)]"

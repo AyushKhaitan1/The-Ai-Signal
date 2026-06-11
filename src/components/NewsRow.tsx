@@ -64,6 +64,20 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
           </span>
         </div>
         
+        {/* Tags Row */}
+        {item.tags && item.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-1.5">
+            {item.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[9px] bg-airbnb-bg text-airbnb-gray border border-airbnb-border-light rounded-md px-2 py-0.5 font-bold uppercase tracking-widest scale-95 origin-left"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        
         {/* Metadata Row */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-airbnb-gray mt-2 font-medium">
           {s && (

@@ -13,9 +13,13 @@ export default function Home() {
       item.title.toLowerCase().includes(term) ||
       item.category.toLowerCase().includes(term) ||
       item.startup_name.toLowerCase().includes(term) ||
-      item.domain.toLowerCase().includes(term)
+      item.domain.toLowerCase().includes(term) ||
+      (item.tags && item.tags.some(t => t.toLowerCase().includes(term)))
     );
   });
+
+  const activeCount = filteredNews.length;
+  const maxUpvotes = filteredNews.reduce((max, item) => item.upvotes > max ? item.upvotes : max, 0);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -28,6 +32,23 @@ export default function Home() {
             <p className="text-xs text-airbnb-gray mt-1">
               Curated intelligence on foundational model releases, startup capital raises, and developer toolkits.
             </p>
+            
+            <div className="flex items-center space-x-6 mt-4 pt-4 border-t border-airbnb-bg text-xs">
+              <div>
+                <span className="text-airbnb-gray">Signals Tracked:</span>{" "}
+                <span className="font-bold text-airbnb-charcoal">{activeCount}</span>
+              </div>
+              <div className="h-4 w-px bg-airbnb-border-light"></div>
+              <div>
+                <span className="text-airbnb-gray">Max Interest:</span>{" "}
+                <span className="font-bold text-airbnb-pink">{maxUpvotes} ▲</span>
+              </div>
+              <div className="h-4 w-px bg-airbnb-border-light"></div>
+              <div>
+                <span className="text-airbnb-gray">Active Trend:</span>{" "}
+                <span className="font-bold text-airbnb-charcoal bg-airbnb-bg px-2 py-0.5 rounded">Reasoning & Agents</span>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-4">
