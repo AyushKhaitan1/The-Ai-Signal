@@ -6,6 +6,11 @@ export interface Comment {
   replies: Comment[];
 }
 
+export interface RelatedLink {
+  domain: string;
+  url: string;
+}
+
 export interface NewsItem {
   id: number;
   title: string;
@@ -21,6 +26,8 @@ export interface NewsItem {
   time: string;
   comments_count: number;
   comments: Comment[];
+  reading_time?: string;
+  related_links?: RelatedLink[];
 }
 
 export const newsItems: NewsItem[] = [
@@ -38,6 +45,11 @@ export const newsItems: NewsItem[] = [
     author: "ml_pioneer",
     time: "45 minutes ago",
     comments_count: 3,
+    reading_time: "5 min read",
+    related_links: [
+      { domain: "arxiv.org", url: "https://arxiv.org/abs/2501.12948" },
+      { domain: "deepseek.com", url: "https://www.deepseek.com" }
+    ],
     comments: [
       {
         user: "cuda_lord",
@@ -77,6 +89,10 @@ export const newsItems: NewsItem[] = [
     author: "sama",
     time: "2 hours ago",
     comments_count: 2,
+    reading_time: "3 min read",
+    related_links: [
+      { domain: "techcrunch.com", url: "https://techcrunch.com" }
+    ],
     comments: [
       {
         user: "agent_builder",
@@ -108,6 +124,10 @@ export const newsItems: NewsItem[] = [
     author: "dario_a",
     time: "4 hours ago",
     comments_count: 2,
+    reading_time: "4 min read",
+    related_links: [
+      { domain: "github.com/anthropic", url: "https://github.com/anthropic-ai" }
+    ],
     comments: [
       {
         user: "ui_designer",
@@ -140,6 +160,10 @@ export const newsItems: NewsItem[] = [
     author: "elon_m",
     time: "6 hours ago",
     comments_count: 2,
+    reading_time: "6 min read",
+    related_links: [
+      { domain: "supermicro.com", url: "https://supermicro.com" }
+    ],
     comments: [
       {
         user: "datacenter_guru",
@@ -172,6 +196,10 @@ export const newsItems: NewsItem[] = [
     author: "arvid_l",
     time: "8 hours ago",
     comments_count: 2,
+    reading_time: "3 min read",
+    related_links: [
+      { domain: "a16z.com", url: "https://a16z.com" }
+    ],
     comments: [
       {
         user: "composer_fan",
@@ -203,6 +231,10 @@ export const newsItems: NewsItem[] = [
     author: "yann_l",
     time: "12 hours ago",
     comments_count: 1,
+    reading_time: "4 min read",
+    related_links: [
+      { domain: "ai.meta.com", url: "https://ai.meta.com/blog/introducing-llama-3-3" }
+    ],
     comments: [
       {
         user: "server_host",
@@ -227,6 +259,10 @@ export const newsItems: NewsItem[] = [
     author: "aravind_s",
     time: "1 day ago",
     comments_count: 2,
+    reading_time: "3 min read",
+    related_links: [
+      { domain: "bloomberg.com", url: "https://www.bloomberg.com" }
+    ],
     comments: [
       {
         user: "search_analyst",
@@ -258,6 +294,10 @@ export const newsItems: NewsItem[] = [
     author: "alexandr_w",
     time: "2 days ago",
     comments_count: 1,
+    reading_time: "5 min read",
+    related_links: [
+      { domain: "defense.gov", url: "https://www.defense.gov" }
+    ],
     comments: [
       {
         user: "data_curator",

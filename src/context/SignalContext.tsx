@@ -82,7 +82,9 @@ export function SignalProvider({ children }: { children: React.ReactNode }) {
       author: "you",
       time: "Just now",
       comments_count: 0,
-      comments: []
+      comments: [],
+      reading_time: "1 min read",
+      related_links: []
     };
 
     saveNews([newSignal, ...news]);

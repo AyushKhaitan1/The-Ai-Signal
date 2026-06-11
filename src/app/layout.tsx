@@ -1,9 +1,46 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Subheader from "@/components/Subheader";
 import Footer from "@/components/Footer";
 import { SignalProvider } from "@/context/SignalContext";
+
+const airbnbCereal = localFont({
+  src: [
+    {
+      path: "../../public/fonts/AirbnbCerealApp-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AirbnbCerealApp-Book.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AirbnbCerealApp-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AirbnbCerealApp-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AirbnbCerealApp-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/AirbnbCerealApp-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-airbnb-cereal",
+});
 
 export const metadata: Metadata = {
   title: "The AI Signal | Atlas Intelligence",
@@ -17,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-airbnb-bg text-airbnb-charcoal">
+      <body className={`${airbnbCereal.variable} font-sans min-h-full flex flex-col bg-airbnb-bg text-airbnb-charcoal`}>
         <SignalProvider>
           <Header />
           <Subheader />

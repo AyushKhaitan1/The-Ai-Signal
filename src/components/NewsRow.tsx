@@ -6,6 +6,26 @@ import { NewsItem } from "@/data/news";
 import { startupsData } from "@/data/startups";
 import { useSignals } from "@/context/SignalContext";
 
+const getTagStyle = (tag: string) => {
+  const normalized = tag.toLowerCase();
+  if (normalized.includes("model") || normalized.includes("reasoning") || normalized.includes("llama")) {
+    return "border-blue-200 text-blue-700 bg-blue-50/40";
+  }
+  if (normalized.includes("agent") || normalized.includes("control") || normalized.includes("tool") || normalized.includes("claude")) {
+    return "border-purple-200 text-purple-700 bg-purple-50/40";
+  }
+  if (normalized.includes("funding") || normalized.includes("valuation") || normalized.includes("vc-")) {
+    return "border-emerald-200 text-emerald-700 bg-emerald-50/40";
+  }
+  if (normalized.includes("research") || normalized.includes("arxiv") || normalized.includes("ssm")) {
+    return "border-amber-200 text-amber-700 bg-amber-50/40";
+  }
+  if (normalized.includes("user-submitted")) {
+    return "border-airbnb-pink/20 text-airbnb-pink bg-airbnb-pink/5";
+  }
+  return "border-airbnb-border-light text-airbnb-gray bg-airbnb-bg/50";
+};
+
 interface NewsRowProps {
   item: NewsItem;
   rank: number;
@@ -63,14 +83,36 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
             ({item.domain})
           </span>
         </div>
+
+        {/* Techmeme-style Related Links / Clustering */}
+        {item.related_links && item.related_links.length > 0 && (
+          <div className="mt-1 text-[11px] text-airbnb-gray/80 flex flex-wrap items-center gap-1.5">
+            <span className="font-bold text-airbnb-gray/50">Also on:</span>
+            {item.related_links.map((link, idx) => (
+              <span key={idx} className="flex items-center gap-1.5">
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-airbnb-pink/80 hover:text-airbnb-pink hover:underline font-bold transition-all"
+                >
+                  {link.domain}
+                </a>
+                {idx < item.related_links!.length - 1 && (
+                  <span className="text-airbnb-gray/30 font-normal">•</span>
+                )}
+              </span>
+            ))}
+          </div>
+        )}
         
         {/* Tags Row */}
         {item.tags && item.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-1.5">
+          <div className="flex flex-wrap gap-1.5 mt-2">
             {item.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[9px] bg-airbnb-bg text-airbnb-gray border border-airbnb-border-light rounded-md px-2 py-0.5 font-bold uppercase tracking-widest scale-95 origin-left"
+                className={`text-[9px] border rounded-md px-1.5 py-0.5 font-bold uppercase tracking-wider scale-95 origin-left transition-colors ${getTagStyle(tag)}`}
               >
                 {tag}
               </span>
@@ -79,7 +121,7 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
         )}
         
         {/* Metadata Row */}
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-airbnb-gray mt-2 font-medium">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-airbnb-gray mt-2.5 font-medium">
           {s && (
             <Link
               href={`/startups/${item.startup_slug}`}
@@ -100,6 +142,27 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
           <span>by {item.author}</span>
           <span>•</span>
           <span>{item.time}</span>
+          {item.reading_time && (
+            <>
+              <span>•</span>
+              <span className="flex items-center text-airbnb-gray/80 font-medium">
+                <svg
+                  className="w-3.5 h-3.5 mr-1 text-airbnb-gray/50"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+                {item.reading_time}
+              </span>
+            </>
+          )}
           <span>•</span>
           <Link
             href={`/comments/${item.comments_slug}`}
