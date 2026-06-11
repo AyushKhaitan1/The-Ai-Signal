@@ -34,6 +34,33 @@ export default function Sidebar() {
 
   return (
     <aside className="col-span-1 space-y-8 w-full">
+      {/* Trending Tags Widget */}
+      <div className="bg-white border border-airbnb-border-light rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+        <div className="mb-4 pb-2.5 border-b border-airbnb-bg">
+          <h3 className="font-bold text-base text-airbnb-charcoal">Trending Tags</h3>
+          <p className="text-[11px] text-airbnb-gray mt-0.5">Select a tag to filter signals in real-time</p>
+        </div>
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {trendingTags.map(([tag, count]) => (
+            <button
+              key={tag}
+              onClick={() => setSearchTerm(tag)}
+              className="text-[11px] border border-airbnb-border hover:border-airbnb-pink hover:text-airbnb-pink rounded-lg px-2.5 py-1.5 font-bold transition-all bg-airbnb-bg hover:bg-white cursor-pointer"
+            >
+              #{tag} <span className="text-airbnb-gray font-normal">({count})</span>
+            </button>
+          ))}
+          {trendingTags.length > 0 && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="text-[11px] text-airbnb-pink hover:underline font-bold px-2 py-1.5 cursor-pointer"
+            >
+              Clear Filter
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Trending Startups Widget */}
       <div className="bg-white border border-airbnb-border-light rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
         <div className="flex justify-between items-center mb-4 pb-3 border-b border-airbnb-bg">
@@ -61,33 +88,6 @@ export default function Sidebar() {
               <svg className="w-4 h-4 text-airbnb-gray" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
             </Link>
           ))}
-        </div>
-      </div>
-
-      {/* Trending Tags Widget */}
-      <div className="bg-white border border-airbnb-border-light rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
-        <div className="mb-4 pb-2.5 border-b border-airbnb-bg">
-          <h3 className="font-bold text-base text-airbnb-charcoal">Trending Tags</h3>
-          <p className="text-[11px] text-airbnb-gray mt-0.5">Select a tag to filter signals in real-time</p>
-        </div>
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {trendingTags.map(([tag, count]) => (
-            <button
-              key={tag}
-              onClick={() => setSearchTerm(tag)}
-              className="text-[11px] border border-airbnb-border hover:border-airbnb-pink hover:text-airbnb-pink rounded-lg px-2.5 py-1.5 font-bold transition-all bg-airbnb-bg hover:bg-white cursor-pointer"
-            >
-              #{tag} <span className="text-airbnb-gray font-normal">({count})</span>
-            </button>
-          ))}
-          {trendingTags.length > 0 && (
-            <button
-              onClick={() => setSearchTerm("")}
-              className="text-[11px] text-airbnb-pink hover:underline font-bold px-2 py-1.5 cursor-pointer"
-            >
-              Clear Filter
-            </button>
-          )}
         </div>
       </div>
 
