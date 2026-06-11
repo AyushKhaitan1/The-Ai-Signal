@@ -34,6 +34,7 @@ interface NewsRowProps {
 export default function NewsRow({ item, rank }: NewsRowProps) {
   const { upvoteSignal } = useSignals();
   const [upvoted, setUpvoted] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
 
   const handleUpvote = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -183,7 +184,38 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
             </svg>
             <span>{item.comments_count} comments</span>
           </Link>
+          {item.summary && (
+            <>
+              <span>•</span>
+              <button
+                onClick={() => setShowSummary(!showSummary)}
+                className="hover:text-airbnb-pink flex items-center space-x-1 font-bold cursor-pointer transition-colors"
+              >
+                <svg
+                  className="w-3.5 h-3.5 mr-0.5 text-airbnb-gray/50 hover:text-airbnb-pink"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+                <span>{showSummary ? "Hide Summary ▴" : "Summary ▾"}</span>
+              </button>
+            </>
+          )}
         </div>
+
+        {/* Collapsible summary blurb */}
+        {showSummary && item.summary && (
+          <div className="mt-3 p-3.5 bg-gradient-to-r from-airbnb-bg to-white border border-airbnb-border-light rounded-xl text-xs text-airbnb-charcoal leading-relaxed animate-fadeIn border-l-2 border-l-airbnb-pink/50 shadow-sm">
+            <p className="font-medium text-airbnb-charcoal/90">{item.summary}</p>
+          </div>
+        )}
       </div>
     </div>
   );

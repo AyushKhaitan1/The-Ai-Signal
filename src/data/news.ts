@@ -28,6 +28,7 @@ export interface NewsItem {
   comments: Comment[];
   reading_time?: string;
   related_links?: RelatedLink[];
+  summary?: string;
 }
 
 export const newsItems: NewsItem[] = [
@@ -50,6 +51,7 @@ export const newsItems: NewsItem[] = [
       { domain: "arxiv.org", url: "https://arxiv.org/abs/2501.12948" },
       { domain: "deepseek.com", url: "https://www.deepseek.com" }
     ],
+    summary: "DeepSeek released R1, their flagship open-weights reasoning model, achieving o1-level scores in math, coding, and logical reasoning benchmarks. Trained at 10x lower cost using advanced reinforcement learning (GRPO).",
     comments: [
       {
         user: "cuda_lord",
@@ -93,6 +95,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "techcrunch.com", url: "https://techcrunch.com" }
     ],
+    summary: "OpenAI launched its 'Operator' agent beta, enabling developers to build applications that autonomously control desktop environments, fill forms, click screen coordinates, and execute browser steps.",
     comments: [
       {
         user: "agent_builder",
@@ -128,6 +131,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "github.com/anthropic", url: "https://github.com/anthropic-ai" }
     ],
+    summary: "Anthropic released the Claude 3.5 Sonnet Computer Use API, enabling Claude to visually read screens, hover, click buttons, and type text to automate arbitrary back-office workflows.",
     comments: [
       {
         user: "ui_designer",
@@ -164,6 +168,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "supermicro.com", url: "https://supermicro.com" }
     ],
+    summary: "Elon Musk announced that xAI completed the Memphis Colossus cluster, housing 100,000 liquid-cooled H100 GPUs built in record time to train the next generation of Grok intelligence models.",
     comments: [
       {
         user: "datacenter_guru",
@@ -200,6 +205,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "a16z.com", url: "https://a16z.com" }
     ],
+    summary: "Cursor (Anysphere) raised a $60M Series A led by Andreessen Horowitz at a $2.5B valuation, powered by rapid developer adoption of their multi-file inline code edit Composer mode.",
     comments: [
       {
         user: "composer_fan",
@@ -235,6 +241,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "ai.meta.com", url: "https://ai.meta.com/blog/introducing-llama-3-3" }
     ],
+    summary: "Meta released Llama 3.3 70B, matching the reasoning performance of Llama 3.1 70B while offering significantly faster speed and lower computational resource overhead.",
     comments: [
       {
         user: "server_host",
@@ -263,6 +270,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "bloomberg.com", url: "https://www.bloomberg.com" }
     ],
+    summary: "Perplexity secured a $500M funding round at a $9B valuation, scaling its AI search engine features, Pro Search depth, and direct e-commerce checkout integration.",
     comments: [
       {
         user: "search_analyst",
@@ -298,6 +306,7 @@ export const newsItems: NewsItem[] = [
     related_links: [
       { domain: "defense.gov", url: "https://www.defense.gov" }
     ],
+    summary: "Scale AI partnered with the US Department of Defense to compile secure RLHF datasets, reinforcing quality benchmarks and alignment evaluation for defense-grade foundation models.",
     comments: [
       {
         user: "data_curator",
