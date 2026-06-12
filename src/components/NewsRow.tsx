@@ -33,16 +33,29 @@ interface NewsRowProps {
 
 export default function NewsRow({ item, rank }: NewsRowProps) {
   const { upvoteSignal } = useSignals();
-  const [upvoted, setUpvoted] = useState(false);
+  const [voteType, setVoteType] = useState<"none" | "up" | "down">("none");
   const [showSummary, setShowSummary] = useState(false);
 
   const handleUpvote = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!upvoted) {
+    if (voteType === "up") {
+      setVoteType("none");
+    } else {
+      setVoteType("up");
       upvoteSignal(item.id);
-      setUpvoted(true);
     }
   };
+
+  const handleDownvote = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (voteType === "down") {
+      setVoteType("none");
+    } else {
+      setVoteType("down");
+    }
+  };
+
+  const currentScore = item.upvotes + (voteType === "up" ? 1 : voteType === "down" ? -1 : 0);
 
   const s = startupsData[item.startup_slug];
 
@@ -54,17 +67,41 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
         {rank}
       </span>
 
-      {/* Upvote Button (Arrow removed per HR review) */}
-      <button
-        onClick={handleUpvote}
-        className={`flex items-center justify-center px-2.5 py-1 text-[11px] font-extrabold rounded-lg border mr-3 shrink-0 transition-all cursor-pointer h-7 ${
-          upvoted
-            ? "bg-[#222222] text-white border-[#222222]"
-            : "bg-white text-airbnb-charcoal border-[#DDDDDD] hover:bg-airbnb-bg hover:border-airbnb-charcoal"
-        }`}
-      >
-        <span>{upvoted ? "Upvoted" : "Upvote"}</span>
-      </button>
+      {/* Refetch.io Style Vertical Vote Panel */}
+      <div className="flex flex-col items-center justify-center border border-airbnb-border rounded-xl bg-white mr-3 py-1 px-2.5 min-w-[38px] shrink-0 text-center select-none shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+        {/* Upvote Button */}
+        <button
+          onClick={handleUpvote}
+          className={`transition-colors cursor-pointer p-0.5 flex items-center justify-center rounded hover:bg-airbnb-bg ${
+            voteType === "up" ? "text-airbnb-pink" : "text-airbnb-gray hover:text-airbnb-charcoal"
+          }`}
+          title="Upvote"
+        >
+          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+            <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 11-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
+          </svg>
+        </button>
+
+        {/* Score */}
+        <span className={`text-[11px] font-extrabold my-0.5 ${
+          voteType === "up" ? "text-airbnb-pink" : voteType === "down" ? "text-airbnb-charcoal" : "text-airbnb-charcoal/80"
+        }`}>
+          {currentScore}
+        </span>
+
+        {/* Downvote Button */}
+        <button
+          onClick={handleDownvote}
+          className={`transition-colors cursor-pointer p-0.5 flex items-center justify-center rounded hover:bg-airbnb-bg ${
+            voteType === "down" ? "text-airbnb-charcoal font-bold" : "text-airbnb-gray hover:text-airbnb-charcoal"
+          }`}
+          title="Downvote"
+        >
+          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+          </svg>
+        </button>
+      </div>
 
       {/* Content */}
       <div className="flex-grow">
@@ -97,10 +134,6 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
         
         {/* Metadata Row */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-airbnb-gray mt-2.5 font-medium">
-          <span className="font-extrabold text-airbnb-charcoal">
-            {upvoted ? item.upvotes + 1 : item.upvotes} points
-          </span>
-          <span>•</span>
           {s && (
             <>
               <Link
