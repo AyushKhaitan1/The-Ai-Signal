@@ -112,106 +112,109 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Airbnb-style Category Icon Tabs */}
-          <div className="flex items-center space-x-8 mt-5 pb-1 overflow-x-auto no-scrollbar border-b border-airbnb-border-light select-none">
-            {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
-              const isActive = subCategory === cat;
-              
-              const categories = {
-                all: {
-                  label: "All Signals",
-                  icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF385C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="7" height="9" />
-                      <rect x="14" y="3" width="7" height="5" />
-                      <rect x="14" y="12" width="7" height="9" />
-                      <rect x="3" y="16" width="7" height="5" />
-                    </svg>
-                  )
-                },
-                models: {
-                  label: "Models",
-                  icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                      <path d="M12 6v12" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  )
-                },
-                tools: {
-                  label: "Tools",
-                  icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="16 18 22 12 16 6" />
-                      <polyline points="8 6 2 12 8 18" />
-                      <line x1="14" y1="4" x2="10" y2="20" />
-                    </svg>
-                  )
-                },
-                funding: {
-                  label: "Funding",
-                  icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="1" x2="12" y2="23" />
-                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  )
-                },
-                research: {
-                  label: "Research",
-                  icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                    </svg>
-                  )
-                }
-              };
+          {/* Unified Box containing both Category Tabs & Search Bar */}
+          <div className="mt-5 bg-white border border-airbnb-border-light rounded-2xl p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] max-w-2xl space-y-4">
+            {/* Airbnb-style Category Icon Tabs */}
+            <div className="flex items-center space-x-8 pb-3 overflow-x-auto no-scrollbar border-b border-airbnb-border-light select-none">
+              {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
+                const isActive = subCategory === cat;
+                
+                const categories = {
+                  all: {
+                    label: "All Signals",
+                    icon: (
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF385C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="7" height="9" />
+                        <rect x="14" y="3" width="7" height="5" />
+                        <rect x="14" y="12" width="7" height="9" />
+                        <rect x="3" y="16" width="7" height="5" />
+                      </svg>
+                    )
+                  },
+                  models: {
+                    label: "Models",
+                    icon: (
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                        <path d="M12 6v12" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    )
+                  },
+                  tools: {
+                    label: "Tools",
+                    icon: (
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                        <line x1="14" y1="4" x2="10" y2="20" />
+                      </svg>
+                    )
+                  },
+                  funding: {
+                    label: "Funding",
+                    icon: (
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                      </svg>
+                    )
+                  },
+                  research: {
+                    label: "Research",
+                    icon: (
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                      </svg>
+                    )
+                  }
+                };
 
-              const current = categories[cat];
+                const current = categories[cat];
 
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setSubCategory(cat)}
-                  className={`flex flex-col items-center space-y-1.5 pb-2 transition-all cursor-pointer group shrink-0 ${
-                    isActive
-                      ? "text-[#222222]"
-                      : "text-airbnb-gray opacity-60 hover:opacity-100 hover:text-[#222222]"
-                  }`}
-                >
-                  <span className="transition-transform duration-200 group-hover:scale-105">
-                    {current.icon}
-                  </span>
-                  <span className={`text-[11px] font-bold tracking-tight ${isActive ? "text-[#222222] font-extrabold" : "text-airbnb-gray"}`}>
-                    {current.label}
-                  </span>
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setSubCategory(cat)}
+                    className={`flex flex-col items-center space-y-1.5 pb-2 transition-all cursor-pointer group shrink-0 ${
+                      isActive
+                        ? "text-[#222222]"
+                        : "text-airbnb-gray opacity-60 hover:opacity-100 hover:text-[#222222]"
+                    }`}
+                  >
+                    <span className="transition-transform duration-200 group-hover:scale-105">
+                      {current.icon}
+                    </span>
+                    <span className={`text-[11px] font-bold tracking-tight ${isActive ? "text-[#222222] font-extrabold" : "text-airbnb-gray"}`}>
+                      {current.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Decoupled Search Box (Smaller & Sleeker) */}
+            <div className="max-w-md w-full">
+              <div className="bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.03)] border border-airbnb-border/80 py-1.5 px-3 flex items-center transition-all focus-within:border-airbnb-gray/50">
+                <span className="text-airbnb-gray/80 pl-1.5">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  value={localSearchTerm}
+                  onChange={(e) => setLocalSearchTerm(e.target.value)}
+                  placeholder="Search AI companies, founders, investors, products..."
+                  className="flex-grow ml-2 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
+                />
+                <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-7 h-7">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
                 </button>
-              );
-            })}
-          </div>
-
-          {/* Prominent Decoupled Search Box (Below Tabs) */}
-          <div className="mt-5 max-w-xl">
-            <div className="bg-white rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-airbnb-border/80 p-2 flex items-center">
-              <span className="text-airbnb-gray/80 pl-3">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </span>
-              <input
-                type="text"
-                value={localSearchTerm}
-                onChange={(e) => setLocalSearchTerm(e.target.value)}
-                placeholder="Search AI companies, founders, investors, products..."
-                className="flex-grow ml-2.5 text-xs sm:text-sm text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
-              />
-              <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white p-2 rounded-full transition-all flex items-center justify-center shrink-0 cursor-pointer ml-2 w-9 h-9">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
+              </div>
             </div>
           </div>
         </div>
