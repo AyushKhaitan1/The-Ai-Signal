@@ -29,18 +29,32 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
 };
 
 export default function Home() {
-  const { news, searchTerm, setSearchTerm } = useSignals();
+  const { news, searchTerm } = useSignals();
+  const [localSearchTerm, setLocalSearchTerm] = useState("");
   const [subCategory, setSubCategory] = useState<"all" | "models" | "tools" | "funding" | "research" | "startups" | "safety" | "compute">("all");
 
   const filteredNews = news.filter((item) => {
-    const term = searchTerm.toLowerCase();
-    const titleMatch = item.title.toLowerCase().includes(term) ||
-      item.category.toLowerCase().includes(term) ||
-      item.startup_name.toLowerCase().includes(term) ||
-      item.domain.toLowerCase().includes(term) ||
-      (item.tags && item.tags.some(t => t.toLowerCase().includes(term)));
+    // Global navbar search filter
+    const globalTerm = searchTerm.toLowerCase();
+    const globalMatch = !searchTerm ||
+      item.title.toLowerCase().includes(globalTerm) ||
+      item.category.toLowerCase().includes(globalTerm) ||
+      item.startup_name.toLowerCase().includes(globalTerm) ||
+      item.domain.toLowerCase().includes(globalTerm) ||
+      (item.tags && item.tags.some(t => t.toLowerCase().includes(globalTerm)));
 
-    if (!titleMatch) return false;
+    if (!globalMatch) return false;
+
+    // Local news feed search filter
+    const localTerm = localSearchTerm.toLowerCase();
+    const localMatch = !localSearchTerm ||
+      item.title.toLowerCase().includes(localTerm) ||
+      item.category.toLowerCase().includes(localTerm) ||
+      item.startup_name.toLowerCase().includes(localTerm) ||
+      item.domain.toLowerCase().includes(localTerm) ||
+      (item.tags && item.tags.some(t => t.toLowerCase().includes(localTerm)));
+
+    if (!localMatch) return false;
 
     if (subCategory !== "all") {
       const categoryLower = item.category.toLowerCase();
@@ -112,8 +126,8 @@ export default function Home() {
             <div className="flex items-center w-full md:w-80 bg-white border border-airbnb-border rounded-full px-4 py-2.5 shadow-sm hover:shadow-[0_2px_4px_rgba(0,0,0,0.06)] transition-all cursor-pointer shrink-0">
               <input
                 type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                value={localSearchTerm}
+                onChange={(e) => setLocalSearchTerm(e.target.value)}
                 placeholder="Search signals..."
                 className="w-full text-xs font-semibold text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
               />
@@ -237,7 +251,7 @@ export default function Home() {
         <div className="space-y-6">
           {sortedNews.length === 0 ? (
             <div className="text-center py-12 bg-white border border-airbnb-border-light rounded-2xl p-6 text-airbnb-gray">
-              No signals found matching &ldquo;{searchTerm}&rdquo; {subCategory !== "all" ? `in ${subCategory}` : ""}
+              No signals found matching &ldquo;{searchTerm || localSearchTerm}&rdquo; {subCategory !== "all" ? `in ${subCategory}` : ""}
             </div>
           ) : (
             (["Today", "Yesterday", "Earlier This Week"] as const).map((groupName) => {
