@@ -28,6 +28,65 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
   return "Earlier This Week";
 };
 
+const renderInfographic = () => {
+  const lines = [];
+  // 16 horizontal landscape curved lines
+  for (let i = 0; i < 16; i++) {
+    const yBaseline = 100 + i * 10;
+    const amplitude = 30 - i * 1.5;
+    
+    // Cubic bezier interpolation curves to simulate hills
+    const path = `M 0,${yBaseline} C 120,${yBaseline - amplitude * 2.5} 240,${yBaseline + amplitude * 1.5} 480,${yBaseline - amplitude}`;
+    lines.push(
+      <path
+        key={`h-${i}`}
+        d={path}
+        stroke="currentColor"
+        strokeWidth="0.75"
+        opacity={0.12 + (i / 35)}
+      />
+    );
+  }
+
+  // 16 vertical cross lines that intersect exactly to form a 3D topographic grid mesh
+  for (let j = 0; j <= 16; j++) {
+    const x = j * 30; // From 0 to 480
+    const pathSegments = [];
+    for (let i = 0; i < 16; i++) {
+      const yBaseline = 100 + i * 10;
+      const amplitude = 30 - i * 1.5;
+      
+      const t = x / 480;
+      const p0 = yBaseline;
+      const p1 = yBaseline - amplitude * 2.5;
+      const p2 = yBaseline + amplitude * 1.5;
+      const p3 = yBaseline - amplitude;
+      
+      const y = Math.pow(1 - t, 3) * p0 + 
+                3 * Math.pow(1 - t, 2) * t * p1 + 
+                3 * (1 - t) * Math.pow(t, 2) * p2 + 
+                Math.pow(t, 3) * p3;
+                
+      pathSegments.push(`${i === 0 ? 'M' : 'L'} ${x},${y}`);
+    }
+    lines.push(
+      <path
+        key={`v-${j}`}
+        d={pathSegments.join(' ')}
+        stroke="currentColor"
+        strokeWidth="0.5"
+        opacity={0.15 + (j / 80)}
+      />
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 480 260" className="w-full h-full text-airbnb-pink" fill="none">
+      {lines}
+    </svg>
+  );
+};
+
 export default function Home() {
   const { news, searchTerm } = useSignals();
   const [localSearchTerm, setLocalSearchTerm] = useState("");
@@ -91,29 +150,23 @@ export default function Home() {
   });
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      {/* Left Side: Real-Time News Feed */}
-      <div className="col-span-1 lg:col-span-2 space-y-6">
+    <div className="space-y-8">
+      {/* Premium Full-Width Hero Banner Card */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#FFF5F6] via-[#FFF8F9] to-[#FFF0F2] border border-airbnb-border-light rounded-3xl p-6 md:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col md:flex-row justify-between items-center gap-6">
         
-        {/* Airbnb-style Header Section */}
-        <div className="pb-2">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-airbnb-border-light">
-            <div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-airbnb-charcoal flex items-center space-x-2">
-                <span>Real-Time News Feed</span>
-                <span className="flex h-2.5 w-2.5 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-airbnb-pink opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-airbnb-pink"></span>
-                </span>
-              </h1>
-              <p className="text-xs text-airbnb-gray mt-1">
-                Curated intelligence on foundational model releases, startup capital raises, and developer toolkits.
-              </p>
-            </div>
+        {/* Left Side: Content & Unified Search/Category Box */}
+        <div className="z-10 flex-grow max-w-xl space-y-5">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-airbnb-charcoal leading-tight">
+              Discover Every AI Startup, Founder & Investor
+            </h1>
+            <p className="text-xs md:text-sm text-airbnb-gray mt-1.5 font-medium">
+              The most comprehensive AI intelligence platform.
+            </p>
           </div>
 
           {/* Unified Box containing both Category Tabs & Search Bar */}
-          <div className="mt-5 bg-white border border-airbnb-border-light rounded-2xl p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] max-w-2xl space-y-4">
+          <div className="bg-white border border-airbnb-border-light rounded-2xl p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] w-full space-y-4">
             {/* Airbnb-style Category Icon Tabs */}
             <div className="flex items-center space-x-8 pb-3 overflow-x-auto no-scrollbar border-b border-airbnb-border-light select-none">
               {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
@@ -219,43 +272,69 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Refetch-style Date Grouped Feed */}
-        <div className="space-y-6">
-          {sortedNews.length === 0 ? (
-            <div className="text-center py-12 bg-white border border-airbnb-border-light rounded-2xl p-6 text-airbnb-gray">
-              No signals found matching &ldquo;{searchTerm || localSearchTerm}&rdquo; {subCategory !== "all" ? `in ${subCategory}` : ""}
-            </div>
-          ) : (
-            (["Today", "Yesterday", "Earlier This Week"] as const).map((groupName) => {
-              const groupItems = groupedNews[groupName];
-              if (groupItems.length === 0) return null;
-
-              return (
-                <div key={groupName} className="space-y-3">
-                  {/* Refetch Date Header */}
-                  <div className="flex items-center space-x-3 pt-2">
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-airbnb-gray bg-airbnb-bg px-2.5 py-1 rounded-md border border-airbnb-border-light/50">
-                      {groupName}
-                    </span>
-                    <div className="h-px flex-grow bg-airbnb-border-light/60"></div>
-                  </div>
-
-                  {/* Unified Card Container */}
-                  <div className="bg-white border border-airbnb-border-light rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
-                    {groupItems.map((item) => {
-                      const globalRank = sortedNews.findIndex((n) => n.id === item.id) + 1;
-                      return <NewsRow key={item.id} item={item} rank={globalRank} />;
-                    })}
-                  </div>
-                </div>
-              );
-            })
-          )}
+        {/* Right Side: Infographic (Wireframe Mountain Mesh / Topographic Map) */}
+        <div className="hidden md:flex items-center justify-end w-2/5 min-w-[200px] max-w-[340px] select-none pointer-events-none relative overflow-hidden -my-8 -mr-8 self-end">
+          <div className="w-full h-full transform translate-y-8 translate-x-4 scale-110">
+            {renderInfographic()}
+          </div>
         </div>
+
       </div>
 
-      {/* Right Side: Sidebar Widgets */}
-      <Sidebar />
+      {/* Grid Layout containing Main Feed and Right Sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {/* Left Side: Real-Time News Feed */}
+        <div className="col-span-1 lg:col-span-2 space-y-6">
+          
+          {/* Section title with live pulse indicator */}
+          <div className="flex items-center space-x-2.5 pb-3 border-b border-airbnb-border-light">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-airbnb-pink opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-airbnb-pink"></span>
+            </span>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-airbnb-charcoal">
+              Real-Time News Feed
+            </h2>
+          </div>
+
+          {/* Refetch-style Date Grouped Feed */}
+          <div className="space-y-6">
+            {sortedNews.length === 0 ? (
+              <div className="text-center py-12 bg-white border border-airbnb-border-light rounded-2xl p-6 text-airbnb-gray">
+                No signals found matching &ldquo;{searchTerm || localSearchTerm}&rdquo; {subCategory !== "all" ? `in ${subCategory}` : ""}
+              </div>
+            ) : (
+              (["Today", "Yesterday", "Earlier This Week"] as const).map((groupName) => {
+                const groupItems = groupedNews[groupName];
+                if (groupItems.length === 0) return null;
+
+                return (
+                  <div key={groupName} className="space-y-3">
+                    {/* Refetch Date Header */}
+                    <div className="flex items-center space-x-3 pt-2">
+                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-airbnb-gray bg-airbnb-bg px-2.5 py-1 rounded-md border border-airbnb-border-light/50">
+                        {groupName}
+                      </span>
+                      <div className="h-px flex-grow bg-airbnb-border-light/60"></div>
+                    </div>
+
+                    {/* Unified Card Container */}
+                    <div className="bg-white border border-airbnb-border-light rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
+                      {groupItems.map((item) => {
+                        const globalRank = sortedNews.findIndex((n) => n.id === item.id) + 1;
+                        return <NewsRow key={item.id} item={item} rank={globalRank} />;
+                      })}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+
+        {/* Right Side: Sidebar Widgets */}
+        <Sidebar />
+      </div>
     </div>
   );
 }
