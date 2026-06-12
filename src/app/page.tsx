@@ -29,8 +29,7 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
 };
 
 export default function Home() {
-  const { news, searchTerm, setSearchTerm } = useSignals();
-  const [activeTab, setActiveTab] = useState<"hot" | "new" | "top" | "active">("hot");
+  const { news, searchTerm } = useSignals();
   const [subCategory, setSubCategory] = useState<"all" | "models" | "tools" | "funding" | "research">("all");
 
   const filteredNews = news.filter((item) => {
@@ -48,24 +47,7 @@ export default function Home() {
     );
   });
 
-  const sortedNews = [...filteredNews].sort((a, b) => {
-    if (activeTab === "new") {
-      return getTimeInHours(a.time) - getTimeInHours(b.time);
-    }
-    if (activeTab === "top") {
-      return b.upvotes - a.upvotes;
-    }
-    if (activeTab === "active") {
-      return b.comments_count - a.comments_count;
-    }
-    // "hot" (default decay algorithm)
-    const scoreA = a.upvotes / Math.pow(getTimeInHours(a.time) + 2, 1.5);
-    const scoreB = b.upvotes / Math.pow(getTimeInHours(b.time) + 2, 1.5);
-    return scoreB - scoreA;
-  });
-
-  const activeCount = filteredNews.length;
-  const maxUpvotes = filteredNews.reduce((max, item) => item.upvotes > max ? item.upvotes : max, 0);
+  const sortedNews = [...filteredNews].sort((a, b) => getTimeInHours(a.time) - getTimeInHours(b.time));
 
   // Group the sorted news items by relative day groups
   const groupedNews: {
@@ -102,48 +84,6 @@ export default function Home() {
               <p className="text-xs text-airbnb-gray mt-1">
                 Curated intelligence on foundational model releases, startup capital raises, and developer toolkits.
               </p>
-            </div>
-
-            {/* Right: Search Box + Sorting Tabs */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-              
-              {/* Secondary Local Search Box (Airbnb style consistency) */}
-              <div className="relative flex items-center bg-white border border-airbnb-border rounded-full px-3.5 py-2 shadow-sm hover:shadow-[0_2px_4px_rgba(0,0,0,0.06)] transition-all w-full sm:max-w-[240px] shrink-0">
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search news signals..."
-                  className="w-full text-xs font-semibold text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
-                />
-                <div className="bg-airbnb-pink text-white p-1.5 rounded-full flex items-center justify-center ml-2 shrink-0">
-                  <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="3.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Sorting Tabs */}
-              <div className="flex items-center space-x-0.5 p-0.5 bg-airbnb-bg rounded-xl border border-airbnb-border-light w-full sm:w-fit shrink-0">
-                {(["hot", "new", "top", "active"] as const).map((tab) => {
-                  const icons = { hot: "🔥", new: "🆕", top: "🏆", active: "💬" };
-                  const label = tab.charAt(0).toUpperCase() + tab.slice(1);
-                  return (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`flex-grow sm:flex-grow-0 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center space-x-1 cursor-pointer ${
-                        activeTab === tab
-                          ? "bg-white text-airbnb-charcoal shadow-[0_1px_3px_rgba(0,0,0,0.08)] border border-airbnb-border-light/20"
-                          : "text-airbnb-gray hover:text-airbnb-charcoal"
-                      }`}
-                    >
-                      <span>{icons[tab]}</span>
-                      <span>{label}</span>
-                    </button>
-                  );
-                })}
-              </div>
             </div>
           </div>
 

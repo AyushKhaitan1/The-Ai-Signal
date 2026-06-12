@@ -49,16 +49,21 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
   return (
     <div className="flex items-start p-4 hover:bg-[#FFF8F9]/30 transition-all duration-200 border-b border-airbnb-border-light/60 last:border-b-0">
 
+      {/* Rank Number */}
+      <span className="w-5 text-xs font-extrabold text-airbnb-gray/70 shrink-0 pt-1.5 text-center mr-1">
+        {rank}
+      </span>
+
       {/* Upvote Button (Arrow removed per HR review) */}
       <button
         onClick={handleUpvote}
-        className={`flex items-center justify-center px-3 py-1.5 text-xs font-bold rounded-lg border mr-3 shrink-0 transition-all cursor-pointer min-w-[48px] h-8 ${
+        className={`flex items-center justify-center px-2.5 py-1 text-[11px] font-extrabold rounded-lg border mr-3 shrink-0 transition-all cursor-pointer h-7 ${
           upvoted
             ? "bg-[#222222] text-white border-[#222222]"
             : "bg-white text-airbnb-charcoal border-[#DDDDDD] hover:bg-airbnb-bg hover:border-airbnb-charcoal"
         }`}
       >
-        <span>{upvoted ? `+${item.upvotes}` : item.upvotes}</span>
+        <span>{upvoted ? "Upvoted" : "Upvote"}</span>
       </button>
 
       {/* Content */}
@@ -92,23 +97,29 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
         
         {/* Metadata Row */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-airbnb-gray mt-2.5 font-medium">
-          {s && (
-            <Link
-              href={`/startups/${item.startup_slug}`}
-              className="bg-airbnb-pink/5 hover:bg-airbnb-pink/10 text-airbnb-pink px-2.5 py-0.5 rounded-full font-bold border border-airbnb-pink/10 transition-colors flex items-center space-x-1"
-            >
-              <svg
-                className="w-3.5 h-3.5 rounded shrink-0"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g dangerouslySetInnerHTML={{ __html: s.logo_grad + s.logo_svg }} />
-              </svg>
-              <span>{item.startup_name}</span>
-            </Link>
-          )}
+          <span className="font-extrabold text-airbnb-charcoal">
+            {upvoted ? item.upvotes + 1 : item.upvotes} points
+          </span>
           <span>•</span>
+          {s && (
+            <>
+              <Link
+                href={`/startups/${item.startup_slug}`}
+                className="bg-airbnb-pink/5 hover:bg-airbnb-pink/10 text-airbnb-pink px-2.5 py-0.5 rounded-full font-bold border border-airbnb-pink/10 transition-colors flex items-center space-x-1"
+              >
+                <svg
+                  className="w-3.5 h-3.5 rounded shrink-0"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g dangerouslySetInnerHTML={{ __html: s.logo_grad + s.logo_svg }} />
+                </svg>
+                <span>{item.startup_name}</span>
+              </Link>
+              <span>•</span>
+            </>
+          )}
           <span>by {item.author}</span>
           <span>•</span>
           <span>{item.time}</span>
