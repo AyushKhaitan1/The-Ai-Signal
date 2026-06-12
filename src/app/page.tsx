@@ -29,90 +29,63 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
 };
 
 const renderInfographic = () => {
-  const lines = [];
-  // 18 horizontal landscape curved lines
-  for (let i = 0; i < 18; i++) {
-    const yBaseline = 80 + i * 11;
-    const amplitude = 40 - i * 1.8;
-    
-    // Cubic bezier curves to simulate a distinct rolling mountain range ridge
-    const path = `M 0,${yBaseline} C 100,${yBaseline - amplitude * 0.4} 180,${yBaseline - amplitude * 2.2} 280,${yBaseline - amplitude * 3.0} C 360,${yBaseline - amplitude * 2.5} 420,${yBaseline - amplitude * 0.8} 480,${yBaseline}`;
-    lines.push(
-      <path
-        key={`h-${i}`}
-        d={path}
-        stroke="url(#meshGrad)"
-        strokeWidth="0.8"
-        opacity={0.18 + (i / 32)}
-      />
-    );
-  }
-
-  // 18 vertical cross lines that intersect exactly with horizontal lines to form a 3D topographic grid mesh
-  for (let j = 0; j <= 18; j++) {
-    const x = j * (480 / 18);
-    const pathSegments = [];
-    for (let i = 0; i < 18; i++) {
-      const yBaseline = 80 + i * 11;
-      const amplitude = 40 - i * 1.8;
-      
-      const t = x / 480;
-      let y = yBaseline;
-      if (t < 280 / 480) {
-        const t1 = x / 280;
-        const p0 = yBaseline;
-        const p1 = yBaseline - amplitude * 0.4;
-        const p2 = yBaseline - amplitude * 2.2;
-        const p3 = yBaseline - amplitude * 3.0;
-        y = Math.pow(1 - t1, 3) * p0 + 
-            3 * Math.pow(1 - t1, 2) * t1 * p1 + 
-            3 * (1 - t1) * Math.pow(t1, 2) * p2 + 
-            Math.pow(t1, 3) * p3;
-      } else {
-        const t2 = (x - 280) / 200;
-        const p0 = yBaseline - amplitude * 3.0;
-        const p1 = yBaseline - amplitude * 2.5;
-        const p2 = yBaseline - amplitude * 0.8;
-        const p3 = yBaseline;
-        y = Math.pow(1 - t2, 3) * p0 + 
-            3 * Math.pow(1 - t2, 2) * t2 * p1 + 
-            3 * (1 - t2) * Math.pow(t2, 2) * p2 + 
-            Math.pow(t2, 3) * p3;
-      }
-      
-      pathSegments.push(`${i === 0 ? 'M' : 'L'} ${x},${y}`);
-    }
-    lines.push(
-      <path
-        key={`v-${j}`}
-        d={pathSegments.join(' ')}
-        stroke="url(#meshGrad)"
-        strokeWidth="0.6"
-        opacity={0.12 + (j / 95)}
-      />
-    );
-  }
-
   return (
-    <svg viewBox="0 0 480 280" className="w-full h-full" fill="none">
+    <svg viewBox="0 0 400 300" className="w-full h-full text-airbnb-pink" fill="none">
       <defs>
-        <linearGradient id="meshGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.25" />
-          <stop offset="60%" stopColor="#FF385C" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#FF7E95" stopOpacity="0.95" />
+        {/* Glow Effects and Color Gradients */}
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.08" />
+          <stop offset="50%" stopColor="#FF385C" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#FF7E95" stopOpacity="0.08" />
         </linearGradient>
-        <radialGradient id="glow" cx="70%" cy="60%" r="50%">
-          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.18" />
-          <stop offset="60%" stopColor="#FF8A9F" stopOpacity="0.05" />
+        <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.35" />
           <stop offset="100%" stopColor="#FF385C" stopOpacity="0" />
         </radialGradient>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="3" stdDeviation="5" floodColor="#FF385C" floodOpacity="0.25" />
+        </filter>
       </defs>
+
+      {/* Concentric expanding radar signal waves */}
+      <circle cx="280" cy="150" r="130" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.12" />
+      <circle cx="280" cy="150" r="95" stroke="currentColor" strokeWidth="0.75" strokeDasharray="4 4" opacity="0.2" className="animate-pulse" />
+      <circle cx="280" cy="150" r="60" stroke="currentColor" strokeWidth="1" strokeDasharray="1 5" opacity="0.3" />
+
+      {/* Network connection grid paths (Ingestion streams) */}
+      <path d="M 100,120 L 180,80 L 260,110 L 220,180 L 140,200 L 100,120 Z" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 3" opacity="0.25" />
+      <line x1="180" y1="80" x2="220" y2="180" stroke="currentColor" strokeWidth="0.5" opacity="0.15" />
+      <line x1="100" y1="120" x2="260" y2="110" stroke="currentColor" strokeWidth="0.5" opacity="0.15" />
+
+      {/* Market Trend Signal Waveform (The main heartbeat pulse) */}
+      <path 
+        d="M 20,160 C 80,160 100,60 140,60 C 180,60 200,240 240,240 C 280,240 300,110 340,110 C 370,110 390,160 400,160" 
+        stroke="url(#waveGrad)" 
+        strokeWidth="3.5" 
+        strokeLinecap="round" 
+        filter="url(#shadow)" 
+      />
+
+      {/* Glowing network node circles */}
+      <circle cx="100" cy="120" r="4" fill="#FF385C" filter="url(#shadow)" />
+      <circle cx="100" cy="120" r="12" fill="url(#nodeGlow)" />
       
-      {/* Background glow circle */}
-      <circle cx="340" cy="160" r="160" fill="url(#glow)" />
+      <circle cx="180" cy="80" r="3" fill="#FF385C" />
       
-      {/* Mesh lines */}
-      {lines}
+      <circle cx="260" cy="110" r="5" fill="#FF385C" filter="url(#shadow)" />
+      <circle cx="260" cy="110" r="16" fill="url(#nodeGlow)" />
+
+      <circle cx="220" cy="180" r="4" fill="#FF385C" />
+      <circle cx="140" cy="200" r="3" fill="#FF385C" />
+      
+      {/* Dynamic central pulse signal node */}
+      <circle cx="280" cy="150" r="6" fill="#FF385C" filter="url(#shadow)" />
+      <circle cx="280" cy="150" r="20" fill="url(#nodeGlow)" />
+      
+      {/* Decorative tech/data metrics labels */}
+      <text x="295" y="146" fill="currentColor" opacity="0.45" fontSize="7" fontFamily="monospace" fontWeight="bold">SIG-09</text>
+      <text x="245" y="96" fill="currentColor" opacity="0.45" fontSize="7" fontFamily="monospace" fontWeight="bold">FEED-A</text>
+      <text x="80" y="136" fill="currentColor" opacity="0.45" fontSize="7" fontFamily="monospace" fontWeight="bold">LIVE</text>
     </svg>
   );
 };
@@ -196,10 +169,10 @@ export default function Home() {
           </div>
 
           {/* Unified Box containing both Category Tabs & Search Bar */}
-          <div className="bg-white border border-airbnb-border-light/80 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-shadow duration-300 w-full space-y-4">
+          <div className="bg-white border border-airbnb-border-light/80 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-shadow duration-300 w-full max-w-[440px] space-y-4">
             
             {/* Decoupled Search Box (Smaller & Sleeker) - Now at the top */}
-            <div className="max-w-md w-full">
+            <div className="w-full">
               <div className="bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-airbnb-border/70 py-2 px-4 flex items-center transition-all duration-300 hover:border-airbnb-gray/40 focus-within:border-airbnb-pink focus-within:ring-4 focus-within:ring-airbnb-pink/5">
                 <span className="text-airbnb-gray/80 pl-0.5">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -221,8 +194,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Airbnb-style Category Icon Tabs - Now at the bottom with border-t */}
-            <div className="flex items-center space-x-8 pt-3.5 overflow-x-auto no-scrollbar border-t border-airbnb-border-light select-none">
+            {/* Airbnb-style Category Icon Tabs - Now at the bottom with border-t and justified layout */}
+            <div className="flex items-center justify-between pt-3.5 select-none border-t border-airbnb-border-light">
               {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
                 const isActive = subCategory === cat;
                 
@@ -305,9 +278,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right Side: Infographic (Wireframe Mountain Mesh / Topographic Map) */}
-        <div className="hidden md:flex items-center justify-end w-2/5 min-w-[220px] max-w-[360px] select-none pointer-events-none relative overflow-hidden -my-10 -mr-10 self-end">
-          <div className="w-full h-full transform translate-y-10 translate-x-6 scale-110">
+        {/* Right Side: Infographic (Real-time AI Signal Flow Radar) */}
+        <div className="hidden md:flex items-center justify-end w-[45%] min-w-[260px] max-w-[420px] select-none pointer-events-none relative overflow-hidden -my-10 -mr-10 self-center">
+          <div className="w-full h-full transform scale-110 translate-y-2">
             {renderInfographic()}
           </div>
         </div>
