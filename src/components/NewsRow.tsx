@@ -48,10 +48,6 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
 
   return (
     <div className="flex items-start p-4 hover:bg-[#FFF8F9]/30 transition-all duration-200 border-b border-airbnb-border-light/60 last:border-b-0">
-      {/* Rank */}
-      <div className="w-6 text-right pr-2 text-sm font-semibold text-airbnb-gray/40 pt-1">
-        {rank}
-      </div>
 
       {/* Upvote Button */}
       <button
@@ -85,27 +81,6 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
           </span>
         </div>
 
-        {/* Techmeme-style Related Links / Clustering */}
-        {item.related_links && item.related_links.length > 0 && (
-          <div className="mt-1 text-[11px] text-airbnb-gray/80 flex flex-wrap items-center gap-1.5">
-            <span className="font-bold text-airbnb-gray/50">Also on:</span>
-            {item.related_links.map((link, idx) => (
-              <span key={idx} className="flex items-center gap-1.5">
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-airbnb-pink/80 hover:text-airbnb-pink hover:underline font-bold transition-all"
-                >
-                  {link.domain}
-                </a>
-                {idx < item.related_links!.length - 1 && (
-                  <span className="text-airbnb-gray/30 font-normal">•</span>
-                )}
-              </span>
-            ))}
-          </div>
-        )}
         
         {/* Tags Row */}
         {item.tags && item.tags.length > 0 && (
@@ -143,27 +118,7 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
           <span>by {item.author}</span>
           <span>•</span>
           <span>{item.time}</span>
-          {item.reading_time && (
-            <>
-              <span>•</span>
-              <span className="flex items-center text-airbnb-gray/80 font-medium">
-                <svg
-                  className="w-3.5 h-3.5 mr-1 text-airbnb-gray/50"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-                {item.reading_time}
-              </span>
-            </>
-          )}
+
           <span>•</span>
           <Link
             href={`/comments/${item.comments_slug}`}

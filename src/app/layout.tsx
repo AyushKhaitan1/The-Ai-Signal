@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
-import Subheader from "@/components/Subheader";
+import LeftSidebar from "@/components/LeftSidebar";
 import Footer from "@/components/Footer";
 import { SignalProvider } from "@/context/SignalContext";
 
@@ -57,10 +57,12 @@ export default function RootLayout({
       <body className={`${airbnbCereal.variable} font-sans min-h-full flex flex-col bg-airbnb-bg text-airbnb-charcoal`}>
         <SignalProvider>
           <Header />
-          <Subheader />
-          <main className="flex-grow w-full">
-            {children}
-          </main>
+          <div className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-8">
+            <LeftSidebar />
+            <main className="flex-grow py-8 min-w-0">
+              {children}
+            </main>
+          </div>
           <Footer />
         </SignalProvider>
       </body>
