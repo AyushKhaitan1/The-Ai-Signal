@@ -196,10 +196,10 @@ export default function ToolsPage() {
                       </div>
                       
                       <div className="flex items-center space-x-1.5">
-                        <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
+                        <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded border ${
                           t.openSource 
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-100" 
-                            : "bg-zinc-100 text-zinc-700 border border-zinc-200"
+                            ? "bg-[#FFF0F2] text-airbnb-pink border border-airbnb-pink/20" 
+                            : "bg-airbnb-bg text-airbnb-charcoal border border-airbnb-border"
                         }`}>
                           {t.openSource ? "Open Source" : "Proprietary"}
                         </span>

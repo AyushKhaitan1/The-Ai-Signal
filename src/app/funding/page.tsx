@@ -226,8 +226,8 @@ export default function FundingPage() {
                       <td className="py-3.5 px-4">
                         <span className={`inline-block text-[9px] uppercase font-bold px-2 py-0.5 rounded border ${
                           d.computeAllied 
-                            ? "bg-amber-50 text-amber-700 border-amber-200" 
-                            : "bg-zinc-50 text-zinc-600 border-zinc-200"
+                            ? "bg-[#FFF0F2] text-airbnb-pink border-airbnb-pink/20" 
+                            : "bg-airbnb-bg text-airbnb-charcoal border-airbnb-border"
                         }`}>
                           {d.computeAllied ? "Compute Allied" : "Pure Capital"}
                         </span>

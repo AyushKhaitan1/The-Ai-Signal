@@ -200,8 +200,8 @@ export default function ModelsPage() {
                       <td className="py-3.5 px-4">
                         <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${
                           m.license === "Open" 
-                            ? "bg-emerald-50 text-emerald-700 border-emerald-200" 
-                            : "bg-blue-50 text-blue-700 border-blue-200"
+                            ? "bg-[#FFF0F2] text-airbnb-pink border-airbnb-pink/20" 
+                            : "bg-airbnb-bg text-airbnb-charcoal border-airbnb-border"
                         }`}>
                           {m.licenseName}
                         </span>

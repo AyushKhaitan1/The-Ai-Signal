@@ -34,26 +34,20 @@ export default function NewsletterPage() {
         {/* Curation Issue Card */}
         <article className="bg-white border border-airbnb-border rounded-3xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.02)]">
           
-          {/* Cover Header */}
-          <div className="bg-gradient-to-br from-[#1F1F22] to-[#2E2E33] text-white p-8 sm:p-12 text-center space-y-4 relative overflow-hidden">
-            {/* Subtle light effect */}
-            <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-airbnb-pink/10 blur-3xl"></div>
-            <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl"></div>
-            
-            <p className="text-[10px] tracking-widest uppercase font-extrabold text-airbnb-pink">Issue #042 — June 2026</p>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold tracking-tight text-white leading-tight">
-              The Weekly Signal
-            </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 font-light max-w-lg mx-auto">
-              A premium, editorial summary of foundational model breakthroughs, venture financing, and state-of-the-art developer tools.
-            </p>
-            
-            <div className="pt-2 flex items-center justify-center space-x-4 text-[10px] text-zinc-500 uppercase tracking-wider font-semibold">
-              <span>By Sama & The orbit-News Team</span>
-              <span>•</span>
-              <span>7 min read</span>
+            {/* Cover Header */}
+            <div className="bg-gradient-to-br from-[#1F1F22] to-[#2E2E33] text-white p-8 sm:p-12 text-center space-y-4 relative overflow-hidden">
+              {/* Subtle light effect */}
+              <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-airbnb-pink/10 blur-3xl"></div>
+              <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl"></div>
+              
+              <p className="text-[10px] tracking-widest uppercase font-extrabold text-airbnb-pink">Issue #042 — June 2026</p>
+              <h1 className="text-4xl sm:text-5xl font-serif font-bold tracking-tight text-white leading-tight">
+                The Weekly Signal
+              </h1>
+              <p className="text-xs sm:text-sm text-zinc-400 font-light max-w-lg mx-auto">
+                A premium, editorial summary of foundational model breakthroughs, venture financing, and state-of-the-art developer tools.
+              </p>
             </div>
-          </div>
 
           {/* Curation Body */}
           <div className="p-8 sm:p-12 space-y-10 text-airbnb-charcoal text-sm leading-relaxed font-sans">
@@ -80,7 +74,7 @@ export default function NewsletterPage() {
                 <div className="bg-airbnb-bg/60 border border-airbnb-border-light rounded-2xl p-5 space-y-2">
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-sm">Llama 3.1 405B Released</h3>
-                    <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2.5 py-0.5 rounded-full">Models</span>
+                    <span className="text-[10px] bg-[#FFF0F2] text-airbnb-pink border border-airbnb-pink/15 font-bold px-2.5 py-0.5 rounded-full">Models</span>
                   </div>
                   <p className="text-xs text-airbnb-gray">
                     Meta AI&apos;s flagship open-weights release marks a new epoch for locally-hosted enterprise agents. The model matches Claude 3.5 Sonnet and GPT-4o on reasoning benchmarks but poses substantial infrastructure challenges, requiring multi-node GPU clusters for inference.
@@ -90,7 +84,7 @@ export default function NewsletterPage() {
                 <div className="bg-airbnb-bg/60 border border-airbnb-border-light rounded-2xl p-5 space-y-2">
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-sm">Claude 3.5 Sonnet Sets standard</h3>
-                    <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2.5 py-0.5 rounded-full">Models</span>
+                    <span className="text-[10px] bg-[#FFF0F2] text-airbnb-pink border border-airbnb-pink/15 font-bold px-2.5 py-0.5 rounded-full">Models</span>
                   </div>
                   <p className="text-xs text-airbnb-gray">
                     Anthropic&apos;s middle-tier model has quietly secured developer dominance. With its visual artifact canvas and vastly superior multi-file reasoning, it has become the standard model for automated codebase edits.
@@ -108,7 +102,7 @@ export default function NewsletterPage() {
                 <div className="bg-airbnb-bg/60 border border-airbnb-border-light rounded-2xl p-5 space-y-2">
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-sm">Scale AI raises $1B Series F</h3>
-                    <span className="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2.5 py-0.5 rounded-full">Funding</span>
+                    <span className="text-[10px] bg-airbnb-bg text-airbnb-charcoal border border-airbnb-border font-bold px-2.5 py-0.5 rounded-full">Funding</span>
                   </div>
                   <p className="text-xs text-airbnb-gray">
                     Led by Accel at a $13.8B valuation. Scale is solidifying its position as the baseline compiler for frontier models, providing human RLHF evaluation datasets and synthetic labeling pipelines for LLMs, robotics, and autonomy.
@@ -118,7 +112,7 @@ export default function NewsletterPage() {
                 <div className="bg-airbnb-bg/60 border border-airbnb-border-light rounded-2xl p-5 space-y-2">
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-sm">Cursor raises $60M Series A</h3>
-                    <span className="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2.5 py-0.5 rounded-full">Funding</span>
+                    <span className="text-[10px] bg-airbnb-bg text-airbnb-charcoal border border-airbnb-border font-bold px-2.5 py-0.5 rounded-full">Funding</span>
                   </div>
                   <p className="text-xs text-airbnb-gray">
                     Led by Andreessen Horowitz. Cursor has achieved unprecedented product-market fit among professional engineers, replacing vanilla VS Code for hundreds of thousands of developers globally within months.
@@ -153,8 +147,8 @@ export default function NewsletterPage() {
 
             <div className="max-w-md mx-auto">
               {subscribed ? (
-                <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl p-4 text-xs font-semibold animate-fadeIn flex items-center justify-center space-x-2">
-                  <svg className="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <div className="bg-[#FFF0F2] border border-airbnb-pink/20 text-airbnb-pink rounded-2xl p-4 text-xs font-semibold animate-fadeIn flex items-center justify-center space-x-2">
+                  <svg className="w-5 h-5 text-airbnb-pink shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                   <span>Thank you! You are now subscribed to the Sunday briefing.</span>

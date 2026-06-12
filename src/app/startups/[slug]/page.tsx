@@ -152,7 +152,7 @@ export default async function StartupDetailPage({ params }: PageProps) {
                           <h4 className="text-xs font-bold text-airbnb-charcoal">{c.title}</h4>
                           <p className="text-[10px] text-airbnb-gray">{c.loc}</p>
                         </div>
-                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-airbnb-pink bg-[#FFF0F2] px-2 py-0.5 rounded border border-airbnb-pink/15">
                           {c.sal}
                         </span>
                       </div>

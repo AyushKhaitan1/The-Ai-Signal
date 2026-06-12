@@ -8,22 +8,19 @@ import { useSignals } from "@/context/SignalContext";
 
 const getTagStyle = (tag: string) => {
   const normalized = tag.toLowerCase();
-  if (normalized.includes("model") || normalized.includes("reasoning") || normalized.includes("llama")) {
-    return "border-blue-200 text-blue-700 bg-blue-50/40";
-  }
-  if (normalized.includes("agent") || normalized.includes("control") || normalized.includes("tool") || normalized.includes("claude")) {
-    return "border-purple-200 text-purple-700 bg-purple-50/40";
-  }
-  if (normalized.includes("funding") || normalized.includes("valuation") || normalized.includes("vc-")) {
-    return "border-emerald-200 text-emerald-700 bg-emerald-50/40";
-  }
-  if (normalized.includes("research") || normalized.includes("arxiv") || normalized.includes("ssm")) {
-    return "border-amber-200 text-amber-700 bg-amber-50/40";
-  }
-  if (normalized.includes("user-submitted")) {
+  if (
+    normalized.includes("model") ||
+    normalized.includes("reasoning") ||
+    normalized.includes("llama") ||
+    normalized.includes("agent") ||
+    normalized.includes("control") ||
+    normalized.includes("tool") ||
+    normalized.includes("claude") ||
+    normalized.includes("user-submitted")
+  ) {
     return "border-airbnb-pink/20 text-airbnb-pink bg-airbnb-pink/5";
   }
-  return "border-airbnb-border-light text-airbnb-gray bg-airbnb-bg/50";
+  return "border-airbnb-border-light text-airbnb-gray bg-airbnb-bg";
 };
 
 interface NewsRowProps {

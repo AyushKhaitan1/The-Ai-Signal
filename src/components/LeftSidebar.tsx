@@ -114,11 +114,11 @@ export default function LeftSidebar() {
             href={item.url}
             className={`flex items-center space-x-3 px-3 py-2.5 text-[13px] font-bold rounded-lg transition-all duration-200 cursor-pointer ${
               isActive
-                ? "bg-[#F7F7F7] text-airbnb-charcoal border-l-4 border-l-airbnb-charcoal rounded-l-none pl-2"
+                ? "bg-[#FFF0F2] text-airbnb-pink"
                 : "text-airbnb-gray hover:text-airbnb-charcoal hover:bg-airbnb-bg"
             }`}
           >
-            <span className={isActive ? "text-airbnb-charcoal" : "text-airbnb-gray"}>
+            <span className={isActive ? "text-airbnb-pink" : "text-airbnb-gray"}>
               {item.icon}
             </span>
             <span>{item.name}</span>
