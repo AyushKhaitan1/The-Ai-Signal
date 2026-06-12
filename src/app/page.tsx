@@ -158,17 +158,41 @@ export default function Home() {
         <div className="z-10 flex-grow max-w-xl space-y-5">
           <div>
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-airbnb-charcoal leading-tight">
-              Discover Every AI Startup, Founder & Investor
+              Discover Every AI Signal, Model & Startup Raise
             </h1>
             <p className="text-xs md:text-sm text-airbnb-gray mt-1.5 font-medium">
-              The most comprehensive AI intelligence platform.
+              The most comprehensive real-time AI market intelligence platform.
             </p>
           </div>
 
           {/* Unified Box containing both Category Tabs & Search Bar */}
           <div className="bg-white border border-airbnb-border-light rounded-2xl p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] w-full space-y-4">
-            {/* Airbnb-style Category Icon Tabs */}
-            <div className="flex items-center space-x-8 pb-3 overflow-x-auto no-scrollbar border-b border-airbnb-border-light select-none">
+            
+            {/* Decoupled Search Box (Smaller & Sleeker) - Now at the top */}
+            <div className="max-w-md w-full">
+              <div className="bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.03)] border border-airbnb-border/80 py-1.5 px-3 flex items-center transition-all focus-within:border-airbnb-gray/50">
+                <span className="text-airbnb-gray/80 pl-1.5">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  value={localSearchTerm}
+                  onChange={(e) => setLocalSearchTerm(e.target.value)}
+                  placeholder="Search AI companies, founders, investors, products..."
+                  className="flex-grow ml-2 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
+                />
+                <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-7 h-7">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Airbnb-style Category Icon Tabs - Now at the bottom with border-t */}
+            <div className="flex items-center space-x-8 pt-3 overflow-x-auto no-scrollbar border-t border-airbnb-border-light select-none">
               {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
                 const isActive = subCategory === cat;
                 
@@ -245,29 +269,6 @@ export default function Home() {
                   </button>
                 );
               })}
-            </div>
-
-            {/* Decoupled Search Box (Smaller & Sleeker) */}
-            <div className="max-w-md w-full">
-              <div className="bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.03)] border border-airbnb-border/80 py-1.5 px-3 flex items-center transition-all focus-within:border-airbnb-gray/50">
-                <span className="text-airbnb-gray/80 pl-1.5">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </span>
-                <input
-                  type="text"
-                  value={localSearchTerm}
-                  onChange={(e) => setLocalSearchTerm(e.target.value)}
-                  placeholder="Search AI companies, founders, investors, products..."
-                  className="flex-grow ml-2 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
-                />
-                <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-7 h-7">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
-              </div>
             </div>
           </div>
         </div>
