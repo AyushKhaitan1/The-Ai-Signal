@@ -140,7 +140,7 @@ export default function ToolsPage() {
               <div className="h-4 w-px bg-airbnb-border-light"></div>
               <div>
                 <span className="text-airbnb-gray">Peak Interest:</span>{" "}
-                <span className="font-bold text-airbnb-pink">{maxUpvotes} ▲</span>
+                <span className="font-bold text-airbnb-pink">{maxUpvotes}</span>
               </div>
               <div className="h-4 w-px bg-airbnb-border-light"></div>
               <div>
@@ -218,14 +218,13 @@ export default function ToolsPage() {
                     <button
                       onClick={() => handleToolVote(t.name)}
                       disabled={votedTools[t.name]}
-                      className={`inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg border text-[11px] font-bold transition-all ${
+                      className={`inline-flex items-center justify-center px-3 py-1.5 text-xs font-bold rounded-lg border transition-all min-w-[48px] h-8 ${
                         votedTools[t.name]
-                          ? "bg-airbnb-pink/5 text-airbnb-pink border-airbnb-pink/10 cursor-default"
-                          : "bg-white hover:bg-airbnb-bg border-airbnb-border text-airbnb-gray hover:text-airbnb-pink hover:border-airbnb-pink/25"
+                          ? "bg-[#222222] text-white border-[#222222] cursor-default"
+                          : "bg-white text-airbnb-charcoal border-[#DDDDDD] hover:bg-airbnb-bg hover:border-airbnb-charcoal cursor-pointer"
                       }`}
                     >
-                      <span>▲</span>
-                      <span>{getInterest(t)}</span>
+                      <span>{votedTools[t.name] ? `+${getInterest(t)}` : getInterest(t)}</span>
                     </button>
                   </div>
                 </div>

@@ -49,22 +49,16 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
   return (
     <div className="flex items-start p-4 hover:bg-[#FFF8F9]/30 transition-all duration-200 border-b border-airbnb-border-light/60 last:border-b-0">
 
-      {/* Upvote Button */}
+      {/* Upvote Button (Arrow removed per HR review) */}
       <button
         onClick={handleUpvote}
-        className={`flex flex-col items-center justify-center px-2 py-1.5 text-xs font-semibold rounded-xl border border-transparent mr-3 shrink-0 transition-all ${
+        className={`flex items-center justify-center px-3 py-1.5 text-xs font-bold rounded-lg border mr-3 shrink-0 transition-all cursor-pointer min-w-[48px] h-8 ${
           upvoted
-            ? "bg-airbnb-pink/5 text-airbnb-pink border-airbnb-pink/10"
-            : "bg-airbnb-bg text-airbnb-gray hover:text-airbnb-pink hover:bg-airbnb-pink/5 hover:border-airbnb-pink/10"
+            ? "bg-[#222222] text-white border-[#222222]"
+            : "bg-white text-airbnb-charcoal border-[#DDDDDD] hover:bg-airbnb-bg hover:border-airbnb-charcoal"
         }`}
       >
-        <svg
-          className={`w-4 h-4 mb-0.5 ${upvoted ? "fill-airbnb-pink" : "fill-current"}`}
-          viewBox="0 0 20 20"
-        >
-          <path d="M10 3a1 1 0 01.7.3l7 7a1 1 0 01-1.4 1.4L11 6.4V16a1 1 0 11-2 0V6.4L3.7 11.7a1 1 0 01-1.4-1.4l7-7A1 1 0 0110 3z" />
-        </svg>
-        <span>{item.upvotes}</span>
+        <span>{upvoted ? `+${item.upvotes}` : item.upvotes}</span>
       </button>
 
       {/* Content */}

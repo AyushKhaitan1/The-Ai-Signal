@@ -49,10 +49,8 @@ export default function CommentsPage({ params }: PageProps) {
         <div key={index} className="space-y-4">
           <div className="p-4 bg-white border border-airbnb-border-light rounded-2xl">
             <div className="flex items-start space-x-3">
-              <button className="text-gray-300 hover:text-airbnb-pink transition-all pt-0.5">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                  <path d="M10 3a1 1 0 01.7.3l7 7a1 1 0 01-1.4 1.4L11 6.4V16a1 1 0 11-2 0V6.4L3.7 11.7a1 1 0 01-1.4-1.4l7-7A1 1 0 0110 3z" />
-                </svg>
+              <button className="text-[10px] font-bold text-airbnb-gray hover:text-airbnb-charcoal transition-colors border border-airbnb-border rounded-md px-1.5 py-0.5 bg-white hover:bg-airbnb-bg cursor-pointer">
+                +1
               </button>
               <div className="flex-grow">
                 <div className="flex items-center space-x-1.5 text-xs text-airbnb-gray font-semibold mb-1.5">
@@ -69,10 +67,8 @@ export default function CommentsPage({ params }: PageProps) {
                   <div className="space-y-3 mt-3 pl-4 border-l-2 border-airbnb-bg">
                     {c.replies.map((r, rIdx) => (
                       <div key={rIdx} className="flex items-start space-x-3 p-3 bg-airbnb-bg border border-airbnb-border-light rounded-xl">
-                        <button className="text-gray-300 hover:text-airbnb-pink transition-all pt-0.5">
-                          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
-                            <path d="M10 3a1 1 0 01.7.3l7 7a1 1 0 01-1.4 1.4L11 6.4V16a1 1 0 11-2 0V6.4L3.7 11.7a1 1 0 01-1.4-1.4l7-7A1 1 0 0110 3z" />
-                          </svg>
+                        <button className="text-[10px] font-bold text-airbnb-gray hover:text-airbnb-charcoal transition-colors border border-airbnb-border rounded-md px-1.5 py-0.5 bg-white hover:bg-airbnb-bg cursor-pointer">
+                          +1
                         </button>
                         <div>
                           <div className="flex items-center space-x-1.5 text-[10px] sm:text-xs text-airbnb-gray font-semibold mb-1">
@@ -115,16 +111,13 @@ export default function CommentsPage({ params }: PageProps) {
             <div className="flex items-start">
               <button
                 onClick={handleUpvote}
-                className={`flex flex-col items-center justify-center px-2 py-1.5 text-xs font-semibold rounded-xl border mr-3 shrink-0 transition-all ${
+                className={`flex items-center justify-center px-3 py-1.5 text-xs font-bold rounded-lg border mr-3 shrink-0 transition-all cursor-pointer min-w-[48px] h-8 ${
                   upvoted
-                    ? "bg-airbnb-pink/5 text-airbnb-pink border-airbnb-pink/10"
-                    : "bg-airbnb-bg border-transparent text-airbnb-gray hover:text-airbnb-pink hover:bg-airbnb-pink/5 hover:border-airbnb-pink/10"
+                    ? "bg-[#222222] text-white border-[#222222]"
+                    : "bg-white text-airbnb-charcoal border-[#DDDDDD] hover:bg-airbnb-bg hover:border-airbnb-charcoal"
                 }`}
               >
-                <svg className={`w-4 h-4 mb-0.5 ${upvoted ? "fill-airbnb-pink" : "fill-current"}`} viewBox="0 0 20 20">
-                  <path d="M10 3a1 1 0 01.7.3l7 7a1 1 0 01-1.4 1.4L11 6.4V16a1 1 0 11-2 0V6.4L3.7 11.7a1 1 0 01-1.4-1.4l7-7A1 1 0 0110 3z" />
-                </svg>
-                <span>{item.upvotes}</span>
+                <span>{upvoted ? `+${item.upvotes}` : item.upvotes}</span>
               </button>
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-airbnb-charcoal leading-snug">
