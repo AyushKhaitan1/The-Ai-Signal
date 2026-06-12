@@ -121,8 +121,7 @@ export default function LogsPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="space-y-8">
+    <div className="space-y-8">
         
         {/* Header Block */}
         <div className="bg-white border border-airbnb-border-light rounded-2xl p-6 sm:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -294,7 +293,6 @@ export default function LogsPage() {
           </div>
         </div>
 
-      </div>
     </div>
   );
 }

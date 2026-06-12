@@ -87,8 +87,7 @@ export default function ResearchPage() {
   const maxUpvotes = filteredItems.reduce((max, item) => item.upvotes > max ? item.upvotes : max, 0);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         
         <div className="col-span-1 lg:col-span-2 space-y-6">
           {/* Header Card */}
@@ -246,9 +245,8 @@ export default function ResearchPage() {
           </div>
         </div>
 
-        <Sidebar />
+      <Sidebar />
 
-      </div>
     </div>
   );
 }
