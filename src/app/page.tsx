@@ -30,58 +30,88 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
 
 const renderInfographic = () => {
   const lines = [];
-  // 16 horizontal landscape curved lines
-  for (let i = 0; i < 16; i++) {
-    const yBaseline = 100 + i * 10;
-    const amplitude = 30 - i * 1.5;
+  // 18 horizontal landscape curved lines
+  for (let i = 0; i < 18; i++) {
+    const yBaseline = 80 + i * 11;
+    const amplitude = 40 - i * 1.8;
     
-    // Cubic bezier interpolation curves to simulate hills
-    const path = `M 0,${yBaseline} C 120,${yBaseline - amplitude * 2.5} 240,${yBaseline + amplitude * 1.5} 480,${yBaseline - amplitude}`;
+    // Cubic bezier curves to simulate a distinct rolling mountain range ridge
+    const path = `M 0,${yBaseline} C 100,${yBaseline - amplitude * 0.4} 180,${yBaseline - amplitude * 2.2} 280,${yBaseline - amplitude * 3.0} C 360,${yBaseline - amplitude * 2.5} 420,${yBaseline - amplitude * 0.8} 480,${yBaseline}`;
     lines.push(
       <path
         key={`h-${i}`}
         d={path}
-        stroke="currentColor"
-        strokeWidth="0.75"
-        opacity={0.12 + (i / 35)}
+        stroke="url(#meshGrad)"
+        strokeWidth="0.8"
+        opacity={0.18 + (i / 32)}
       />
     );
   }
 
-  // 16 vertical cross lines that intersect exactly to form a 3D topographic grid mesh
-  for (let j = 0; j <= 16; j++) {
-    const x = j * 30; // From 0 to 480
+  // 18 vertical cross lines that intersect exactly with horizontal lines to form a 3D topographic grid mesh
+  for (let j = 0; j <= 18; j++) {
+    const x = j * (480 / 18);
     const pathSegments = [];
-    for (let i = 0; i < 16; i++) {
-      const yBaseline = 100 + i * 10;
-      const amplitude = 30 - i * 1.5;
+    for (let i = 0; i < 18; i++) {
+      const yBaseline = 80 + i * 11;
+      const amplitude = 40 - i * 1.8;
       
       const t = x / 480;
-      const p0 = yBaseline;
-      const p1 = yBaseline - amplitude * 2.5;
-      const p2 = yBaseline + amplitude * 1.5;
-      const p3 = yBaseline - amplitude;
+      let y = yBaseline;
+      if (t < 280 / 480) {
+        const t1 = x / 280;
+        const p0 = yBaseline;
+        const p1 = yBaseline - amplitude * 0.4;
+        const p2 = yBaseline - amplitude * 2.2;
+        const p3 = yBaseline - amplitude * 3.0;
+        y = Math.pow(1 - t1, 3) * p0 + 
+            3 * Math.pow(1 - t1, 2) * t1 * p1 + 
+            3 * (1 - t1) * Math.pow(t1, 2) * p2 + 
+            Math.pow(t1, 3) * p3;
+      } else {
+        const t2 = (x - 280) / 200;
+        const p0 = yBaseline - amplitude * 3.0;
+        const p1 = yBaseline - amplitude * 2.5;
+        const p2 = yBaseline - amplitude * 0.8;
+        const p3 = yBaseline;
+        y = Math.pow(1 - t2, 3) * p0 + 
+            3 * Math.pow(1 - t2, 2) * t2 * p1 + 
+            3 * (1 - t2) * Math.pow(t2, 2) * p2 + 
+            Math.pow(t2, 3) * p3;
+      }
       
-      const y = Math.pow(1 - t, 3) * p0 + 
-                3 * Math.pow(1 - t, 2) * t * p1 + 
-                3 * (1 - t) * Math.pow(t, 2) * p2 + 
-                Math.pow(t, 3) * p3;
-                
       pathSegments.push(`${i === 0 ? 'M' : 'L'} ${x},${y}`);
     }
     lines.push(
       <path
         key={`v-${j}`}
         d={pathSegments.join(' ')}
-        stroke="currentColor"
-        strokeWidth="0.5"
-        opacity={0.15 + (j / 80)}
+        stroke="url(#meshGrad)"
+        strokeWidth="0.6"
+        opacity={0.12 + (j / 95)}
       />
     );
   }
 
   return (
-    <svg viewBox="0 0 480 260" className="w-full h-full text-airbnb-pink" fill="none">
+    <svg viewBox="0 0 480 280" className="w-full h-full" fill="none">
+      <defs>
+        <linearGradient id="meshGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.25" />
+          <stop offset="60%" stopColor="#FF385C" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#FF7E95" stopOpacity="0.95" />
+        </linearGradient>
+        <radialGradient id="glow" cx="70%" cy="60%" r="50%">
+          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.18" />
+          <stop offset="60%" stopColor="#FF8A9F" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#FF385C" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      
+      {/* Background glow circle */}
+      <circle cx="340" cy="160" r="160" fill="url(#glow)" />
+      
+      {/* Mesh lines */}
       {lines}
     </svg>
   );
@@ -152,26 +182,26 @@ export default function Home() {
   return (
     <div className="space-y-8">
       {/* Premium Full-Width Hero Banner Card */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#FFF5F6] via-[#FFF8F9] to-[#FFF0F2] border border-airbnb-border-light rounded-3xl p-6 md:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#FFF5F6] via-[#FFF8F9] to-[#FFF0F2] border border-airbnb-border-light rounded-[24px] p-6 md:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.02)] flex flex-col md:flex-row justify-between items-center gap-8">
         
         {/* Left Side: Content & Unified Search/Category Box */}
-        <div className="z-10 flex-grow max-w-xl space-y-5">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-airbnb-charcoal leading-tight">
+        <div className="z-10 flex-grow max-w-xl space-y-6">
+          <div className="space-y-2">
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-airbnb-charcoal leading-[1.15]">
               Discover Every AI Signal, Model & Startup Raise
             </h1>
-            <p className="text-xs md:text-sm text-airbnb-gray mt-1.5 font-medium">
+            <p className="text-xs md:text-sm text-airbnb-gray font-medium">
               The most comprehensive real-time AI market intelligence platform.
             </p>
           </div>
 
           {/* Unified Box containing both Category Tabs & Search Bar */}
-          <div className="bg-white border border-airbnb-border-light rounded-2xl p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] w-full space-y-4">
+          <div className="bg-white border border-airbnb-border-light/80 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-shadow duration-300 w-full space-y-4">
             
             {/* Decoupled Search Box (Smaller & Sleeker) - Now at the top */}
             <div className="max-w-md w-full">
-              <div className="bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.03)] border border-airbnb-border/80 py-1.5 px-3 flex items-center transition-all focus-within:border-airbnb-gray/50">
-                <span className="text-airbnb-gray/80 pl-1.5">
+              <div className="bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-airbnb-border/70 py-2 px-4 flex items-center transition-all duration-300 hover:border-airbnb-gray/40 focus-within:border-airbnb-pink focus-within:ring-4 focus-within:ring-airbnb-pink/5">
+                <span className="text-airbnb-gray/80 pl-0.5">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
@@ -181,10 +211,10 @@ export default function Home() {
                   value={localSearchTerm}
                   onChange={(e) => setLocalSearchTerm(e.target.value)}
                   placeholder="Search AI companies, founders, investors, products..."
-                  className="flex-grow ml-2 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
+                  className="flex-grow ml-2.5 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
                 />
-                <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-7 h-7">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all duration-300 flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-8 h-8 shadow-sm">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
@@ -192,7 +222,7 @@ export default function Home() {
             </div>
 
             {/* Airbnb-style Category Icon Tabs - Now at the bottom with border-t */}
-            <div className="flex items-center space-x-8 pt-3 overflow-x-auto no-scrollbar border-t border-airbnb-border-light select-none">
+            <div className="flex items-center space-x-8 pt-3.5 overflow-x-auto no-scrollbar border-t border-airbnb-border-light select-none">
               {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
                 const isActive = subCategory === cat;
                 
@@ -254,18 +284,20 @@ export default function Home() {
                   <button
                     key={cat}
                     onClick={() => setSubCategory(cat)}
-                    className={`flex flex-col items-center space-y-1.5 pb-2 transition-all cursor-pointer group shrink-0 ${
+                    className={`flex flex-col items-center space-y-1.5 pb-2.5 transition-all cursor-pointer group shrink-0 relative ${
                       isActive
                         ? "text-[#222222]"
-                        : "text-airbnb-gray opacity-60 hover:opacity-100 hover:text-[#222222]"
+                        : "text-airbnb-gray opacity-65 hover:opacity-100 hover:text-[#222222]"
                     }`}
                   >
-                    <span className="transition-transform duration-200 group-hover:scale-105">
+                    <span className="transition-transform duration-200 group-hover:scale-110">
                       {current.icon}
                     </span>
                     <span className={`text-[11px] font-bold tracking-tight ${isActive ? "text-[#222222] font-extrabold" : "text-airbnb-gray"}`}>
                       {current.label}
                     </span>
+                    {/* Animated Sliding Underline */}
+                    <span className={`absolute bottom-0 left-1 right-1 h-[2.5px] rounded-full transition-all duration-300 ${isActive ? "bg-airbnb-pink opacity-100 scale-x-100" : "bg-airbnb-pink/40 opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-50"}`} />
                   </button>
                 );
               })}
@@ -274,8 +306,8 @@ export default function Home() {
         </div>
 
         {/* Right Side: Infographic (Wireframe Mountain Mesh / Topographic Map) */}
-        <div className="hidden md:flex items-center justify-end w-2/5 min-w-[200px] max-w-[340px] select-none pointer-events-none relative overflow-hidden -my-8 -mr-8 self-end">
-          <div className="w-full h-full transform translate-y-8 translate-x-4 scale-110">
+        <div className="hidden md:flex items-center justify-end w-2/5 min-w-[220px] max-w-[360px] select-none pointer-events-none relative overflow-hidden -my-10 -mr-10 self-end">
+          <div className="w-full h-full transform translate-y-10 translate-x-6 scale-110">
             {renderInfographic()}
           </div>
         </div>
