@@ -5,14 +5,14 @@ export default function Footer() {
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <span className="font-semibold text-airbnb-charcoal">© 2026 Atlas Intelligence, Inc.</span>
           <span>•</span>
-          <a href="#" className="hover:underline">Privacy</a>
+          <a href="#" className="hover:text-airbnb-charcoal transition-colors">Privacy</a>
           <span>•</span>
-          <a href="#" className="hover:underline">Terms</a>
+          <a href="#" className="hover:text-airbnb-charcoal transition-colors">Terms</a>
           <span>•</span>
-          <a href="#" className="hover:underline">Sitemap</a>
+          <a href="#" className="hover:text-airbnb-charcoal transition-colors">Sitemap</a>
         </div>
         <div className="flex items-center space-x-4">
-          <span className="flex items-center cursor-pointer hover:underline">
+          <span className="flex items-center cursor-pointer hover:text-airbnb-charcoal transition-colors">
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9s2.015-9 4.5-9M3 9h18M3 15h18"/></svg>
             English (US)
           </span>

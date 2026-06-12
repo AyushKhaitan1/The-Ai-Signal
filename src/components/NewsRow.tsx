@@ -102,7 +102,7 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
         <div className="flex flex-wrap items-baseline gap-x-2">
           <Link
             href={`/comments/${item.comments_slug}`}
-            className="text-sm sm:text-base font-semibold text-airbnb-charcoal hover:text-airbnb-pink hover:underline leading-snug"
+            className="text-sm sm:text-base font-semibold text-airbnb-charcoal hover:text-airbnb-pink leading-snug"
           >
             {item.title}
           </Link>
@@ -151,8 +151,6 @@ export default function NewsRow({ item, rank }: NewsRowProps) {
               <span>•</span>
             </>
           )}
-          <span>by {item.author}</span>
-          <span>•</span>
           <span>{item.time}</span>
 
           <span>•</span>

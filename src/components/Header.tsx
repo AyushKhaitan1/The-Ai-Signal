@@ -55,7 +55,7 @@ export default function Header() {
           </button>
           
           {/* Sign In */}
-          <Link href="#signin" className="text-xs font-bold text-airbnb-charcoal px-1 py-2 hover:underline transition-all">
+          <Link href="#signin" className="text-xs font-bold text-airbnb-charcoal px-1 py-2 hover:opacity-85 transition-all">
             Sign in
           </Link>
 

@@ -29,22 +29,44 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
 };
 
 export default function Home() {
-  const { news, searchTerm } = useSignals();
-  const [subCategory, setSubCategory] = useState<"all" | "models" | "tools" | "funding" | "research">("all");
+  const { news, searchTerm, setSearchTerm } = useSignals();
+  const [subCategory, setSubCategory] = useState<"all" | "models" | "tools" | "funding" | "research" | "startups" | "safety" | "compute">("all");
 
   const filteredNews = news.filter((item) => {
-    if (subCategory !== "all" && item.category.toLowerCase() !== subCategory) {
-      return false;
-    }
-
     const term = searchTerm.toLowerCase();
-    return (
-      item.title.toLowerCase().includes(term) ||
+    const titleMatch = item.title.toLowerCase().includes(term) ||
       item.category.toLowerCase().includes(term) ||
       item.startup_name.toLowerCase().includes(term) ||
       item.domain.toLowerCase().includes(term) ||
-      (item.tags && item.tags.some(t => t.toLowerCase().includes(term)))
-    );
+      (item.tags && item.tags.some(t => t.toLowerCase().includes(term)));
+
+    if (!titleMatch) return false;
+
+    if (subCategory !== "all") {
+      const categoryLower = item.category.toLowerCase();
+      if (subCategory === "models") {
+        if (categoryLower !== "models") return false;
+      } else if (subCategory === "tools") {
+        if (categoryLower !== "tools") return false;
+      } else if (subCategory === "funding") {
+        if (categoryLower !== "funding") return false;
+      } else if (subCategory === "research") {
+        if (categoryLower !== "research") return false;
+      } else if (subCategory === "startups") {
+        const isStartup = item.startup_name !== "Other" || categoryLower === "funding";
+        if (!isStartup) return false;
+      } else if (subCategory === "safety") {
+        const text = (item.title + " " + item.tags.join(" ")).toLowerCase();
+        const isSafety = text.includes("safety") || text.includes("align") || text.includes("eval");
+        if (!isSafety) return false;
+      } else if (subCategory === "compute") {
+        const text = (item.title + " " + item.tags.join(" ")).toLowerCase();
+        const isCompute = text.includes("compute") || text.includes("gpu") || text.includes("chip") || text.includes("hardware") || text.includes("colossus") || text.includes("nvidia");
+        if (!isCompute) return false;
+      }
+    }
+
+    return true;
   });
 
   const sortedNews = [...filteredNews].sort((a, b) => getTimeInHours(a.time) - getTimeInHours(b.time));
@@ -85,51 +107,103 @@ export default function Home() {
                 Curated intelligence on foundational model releases, startup capital raises, and developer toolkits.
               </p>
             </div>
+
+            {/* Local Search Input (Airbnb style consistency) */}
+            <div className="flex items-center w-full md:w-80 bg-white border border-airbnb-border rounded-full px-4 py-2.5 shadow-sm hover:shadow-[0_2px_4px_rgba(0,0,0,0.06)] transition-all cursor-pointer shrink-0">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search signals..."
+                className="w-full text-xs font-semibold text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
+              />
+              <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white p-1.5 rounded-full transition-colors ml-2 -mr-2 flex items-center justify-center cursor-pointer">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Airbnb-style Category Icon Tabs */}
           <div className="flex items-center space-x-8 mt-5 pb-1 overflow-x-auto no-scrollbar border-b border-airbnb-border-light select-none">
-            {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
+            {(["all", "models", "tools", "funding", "research", "startups", "safety", "compute"] as const).map((cat) => {
               const isActive = subCategory === cat;
               
               const categories = {
                 all: {
                   label: "All Signals",
                   icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25A2.25 2.25 0 0113.5 8.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF385C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="7" height="9" />
+                      <rect x="14" y="3" width="7" height="5" />
+                      <rect x="14" y="12" width="7" height="9" />
+                      <rect x="3" y="16" width="7" height="5" />
                     </svg>
                   )
                 },
                 models: {
                   label: "Models",
                   icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21m0 0l-2.013-2.013M9 21l2.013-2.013M2.28 18.096l3.42-3.42M21.72 5.904l-3.42 3.42M12 12a3 3 0 100-6 3 3 0 000 6zm0 0a6 6 0 100 12 6 6 0 000-12zm-3.5 3.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm11 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                      <path d="M12 6v12" />
+                      <circle cx="12" cy="12" r="3" />
                     </svg>
                   )
                 },
                 tools: {
                   label: "Tools",
                   icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="16 18 22 12 16 6" />
+                      <polyline points="8 6 2 12 8 18" />
+                      <line x1="14" y1="4" x2="10" y2="20" />
                     </svg>
                   )
                 },
                 funding: {
                   label: "Funding",
                   icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                   )
                 },
                 research: {
                   label: "Research",
                   icon: (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                    </svg>
+                  )
+                },
+                startups: {
+                  label: "Startups",
+                  icon: (
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                  )
+                },
+                safety: {
+                  label: "Safety",
+                  icon: (
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  )
+                },
+                compute: {
+                  label: "Compute",
+                  icon: (
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                      <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                      <line x1="6" y1="6" x2="6.01" y2="6" />
+                      <line x1="6" y1="18" x2="6.01" y2="18" />
                     </svg>
                   )
                 }
@@ -141,13 +215,13 @@ export default function Home() {
                 <button
                   key={cat}
                   onClick={() => setSubCategory(cat)}
-                  className={`flex flex-col items-center space-y-1.5 pb-2 border-b-2 transition-all cursor-pointer group shrink-0 ${
+                  className={`flex flex-col items-center space-y-1.5 pb-2 transition-all cursor-pointer group shrink-0 ${
                     isActive
-                      ? "border-b-[#222222] text-[#222222]"
-                      : "border-b-transparent text-airbnb-gray hover:text-[#222222] hover:border-b-airbnb-border-light"
+                      ? "text-[#222222]"
+                      : "text-airbnb-gray opacity-60 hover:opacity-100 hover:text-[#222222]"
                   }`}
                 >
-                  <span className={`transition-transform duration-200 group-hover:scale-105 ${isActive ? "text-[#222222]" : "text-airbnb-gray/80 group-hover:text-[#222222]"}`}>
+                  <span className="transition-transform duration-200 group-hover:scale-105">
                     {current.icon}
                   </span>
                   <span className={`text-[11px] font-bold tracking-tight ${isActive ? "text-[#222222] font-extrabold" : "text-airbnb-gray"}`}>

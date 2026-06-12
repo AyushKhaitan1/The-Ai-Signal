@@ -53,7 +53,7 @@ export default function Sidebar() {
           {trendingTags.length > 0 && (
             <button
               onClick={() => setSearchTerm("")}
-              className="text-[11px] text-airbnb-pink hover:underline font-bold px-2 py-1.5 cursor-pointer"
+              className="text-[11px] text-airbnb-pink hover:text-airbnb-pink-hover font-bold px-2 py-1.5 cursor-pointer transition-colors"
             >
               Clear Filter
             </button>
@@ -65,7 +65,7 @@ export default function Sidebar() {
       <div className="bg-white border border-airbnb-border-light rounded-2xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
         <div className="flex justify-between items-center mb-4 pb-3 border-b border-airbnb-bg">
           <h3 className="font-bold text-base text-airbnb-charcoal">Trending Startups</h3>
-          <Link href="/startups" className="text-xs font-bold text-airbnb-pink hover:underline">
+          <Link href="/startups" className="text-xs font-bold text-airbnb-pink hover:text-airbnb-pink-hover transition-colors">
             View All
           </Link>
         </div>
@@ -109,7 +109,7 @@ export default function Sidebar() {
           <div><span className="text-[#1B5E20] font-bold">[SUCCESS]</span> <span className="text-airbnb-gray">ingested:</span> codestral mamba news</div>
         </div>
         <div className="mt-4 text-center">
-          <Link href="/logs" className="text-xs font-bold text-airbnb-pink hover:underline">
+          <Link href="/logs" className="text-xs font-bold text-airbnb-pink hover:text-airbnb-pink-hover transition-colors">
             Open Live Log Console
           </Link>
         </div>

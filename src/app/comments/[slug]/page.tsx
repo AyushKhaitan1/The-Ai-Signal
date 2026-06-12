@@ -128,13 +128,11 @@ export default function CommentsPage({ params }: PageProps) {
                   {s && (
                     <>
                       <span>•</span>
-                      <Link href={`/startups/${item.startup_slug}`} className="font-bold text-airbnb-pink hover:underline">
+                      <Link href={`/startups/${item.startup_slug}`} className="font-bold text-airbnb-pink">
                         {item.startup_name}
                       </Link>
                     </>
                   )}
-                  <span>•</span>
-                  <span>submitted by {item.author}</span>
                   <span>•</span>
                   <span>{item.time}</span>
                 </div>
