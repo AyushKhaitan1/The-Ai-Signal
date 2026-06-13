@@ -28,68 +28,6 @@ const getGroupHeader = (timeStr: string): "Today" | "Yesterday" | "Earlier This 
   return "Earlier This Week";
 };
 
-const renderInfographic = () => {
-  return (
-    <svg viewBox="0 0 400 300" className="w-full h-full text-airbnb-pink" fill="none">
-      <defs>
-        {/* Glow Effects and Color Gradients */}
-        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.08" />
-          <stop offset="50%" stopColor="#FF385C" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#FF7E95" stopOpacity="0.08" />
-        </linearGradient>
-        <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#FF385C" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#FF385C" stopOpacity="0" />
-        </radialGradient>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="3" stdDeviation="5" floodColor="#FF385C" floodOpacity="0.25" />
-        </filter>
-      </defs>
-
-      {/* Concentric expanding radar signal waves */}
-      <circle cx="280" cy="150" r="130" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 6" opacity="0.12" />
-      <circle cx="280" cy="150" r="95" stroke="currentColor" strokeWidth="0.75" strokeDasharray="4 4" opacity="0.2" className="animate-pulse" />
-      <circle cx="280" cy="150" r="60" stroke="currentColor" strokeWidth="1" strokeDasharray="1 5" opacity="0.3" />
-
-      {/* Network connection grid paths (Ingestion streams) */}
-      <path d="M 100,120 L 180,80 L 260,110 L 220,180 L 140,200 L 100,120 Z" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 3" opacity="0.25" />
-      <line x1="180" y1="80" x2="220" y2="180" stroke="currentColor" strokeWidth="0.5" opacity="0.15" />
-      <line x1="100" y1="120" x2="260" y2="110" stroke="currentColor" strokeWidth="0.5" opacity="0.15" />
-
-      {/* Market Trend Signal Waveform (The main heartbeat pulse) */}
-      <path 
-        d="M 20,160 C 80,160 100,60 140,60 C 180,60 200,240 240,240 C 280,240 300,110 340,110 C 370,110 390,160 400,160" 
-        stroke="url(#waveGrad)" 
-        strokeWidth="3.5" 
-        strokeLinecap="round" 
-        filter="url(#shadow)" 
-      />
-
-      {/* Glowing network node circles */}
-      <circle cx="100" cy="120" r="4" fill="#FF385C" filter="url(#shadow)" />
-      <circle cx="100" cy="120" r="12" fill="url(#nodeGlow)" />
-      
-      <circle cx="180" cy="80" r="3" fill="#FF385C" />
-      
-      <circle cx="260" cy="110" r="5" fill="#FF385C" filter="url(#shadow)" />
-      <circle cx="260" cy="110" r="16" fill="url(#nodeGlow)" />
-
-      <circle cx="220" cy="180" r="4" fill="#FF385C" />
-      <circle cx="140" cy="200" r="3" fill="#FF385C" />
-      
-      {/* Dynamic central pulse signal node */}
-      <circle cx="280" cy="150" r="6" fill="#FF385C" filter="url(#shadow)" />
-      <circle cx="280" cy="150" r="20" fill="url(#nodeGlow)" />
-      
-      {/* Decorative tech/data metrics labels */}
-      <text x="295" y="146" fill="currentColor" opacity="0.45" fontSize="7" fontFamily="monospace" fontWeight="bold">SIG-09</text>
-      <text x="245" y="96" fill="currentColor" opacity="0.45" fontSize="7" fontFamily="monospace" fontWeight="bold">FEED-A</text>
-      <text x="80" y="136" fill="currentColor" opacity="0.45" fontSize="7" fontFamily="monospace" fontWeight="bold">LIVE</text>
-    </svg>
-  );
-};
-
 export default function Home() {
   const { news, searchTerm } = useSignals();
   const [localSearchTerm, setLocalSearchTerm] = useState("");
@@ -155,133 +93,198 @@ export default function Home() {
   return (
     <div className="space-y-8">
       {/* Premium Full-Width Hero Banner Card */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#FFF5F6] via-[#FFF8F9] to-[#FFF0F2] border border-airbnb-border-light rounded-[24px] p-6 md:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.02)] flex flex-col md:flex-row justify-between items-center gap-8">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#FFF5F6] via-[#FFF8F9] to-[#FFF0F2] border border-airbnb-border-light rounded-[24px] p-6 md:p-10 shadow-[0_4px_30px_rgba(0,0,0,0.015)] flex flex-col lg:flex-row justify-between items-center gap-8">
         
-        {/* Left Side: Content & Unified Search/Category Box */}
-        <div className="z-10 flex-grow max-w-xl space-y-6">
+        {/* Left Side: Content & Search Section */}
+        <div className="z-10 flex-grow max-w-2xl space-y-6">
+          {/* Sparkles Badge */}
+          <div className="flex items-center space-x-1.5 bg-white/80 border border-airbnb-pink/15 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider text-airbnb-pink w-fit uppercase shadow-sm">
+            <svg className="w-3 h-3 text-airbnb-pink" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21L8.188 15.904 3 15 8.188 14.096 9 9l.813 5.096 5.187.904-5.187.904zM19.006 5.006L18.5 8l-.506-2.994L15 4.5l2.994-.506L18.5 1l.506 2.994L22 4.5l-2.994.506z" />
+            </svg>
+            <span>AI News & Insights</span>
+          </div>
+
           <div className="space-y-2">
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-airbnb-charcoal leading-[1.15]">
-              Discover Every AI Signal, Model & Startup Raise
+            <h1 className="text-3xl md:text-4.5xl font-extrabold tracking-tight text-airbnb-charcoal leading-[1.12]">
+              Stay Ahead of the AI Revolution
             </h1>
             <p className="text-xs md:text-sm text-airbnb-gray font-medium">
-              The most comprehensive real-time AI market intelligence platform.
+              Real-time AI news, funding updates, and product launches.
             </p>
           </div>
 
-          {/* Unified Box containing both Category Tabs & Search Bar */}
-          <div className="bg-white border border-airbnb-border-light/80 rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.05)] transition-shadow duration-300 w-full max-w-[440px] space-y-4">
-            
-            {/* Decoupled Search Box (Smaller & Sleeker) - Now at the top */}
-            <div className="w-full">
-              <div className="bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-airbnb-border/70 py-2 px-4 flex items-center transition-all duration-300 hover:border-airbnb-gray/40 focus-within:border-airbnb-pink focus-within:ring-4 focus-within:ring-airbnb-pink/5">
-                <span className="text-airbnb-gray/80 pl-0.5">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </span>
-                <input
-                  type="text"
-                  value={localSearchTerm}
-                  onChange={(e) => setLocalSearchTerm(e.target.value)}
-                  placeholder="Search AI companies, founders, investors, products..."
-                  className="flex-grow ml-2.5 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
-                />
-                <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all duration-300 flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-8 h-8 shadow-sm">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
+          {/* Search Box - Floating directly on the banner background */}
+          <div className="bg-white rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-airbnb-border/75 py-2.5 px-4 flex items-center transition-all duration-300 hover:border-airbnb-gray/30 focus-within:border-airbnb-pink focus-within:ring-4 focus-within:ring-airbnb-pink/5 w-full max-w-xl">
+            <span className="text-airbnb-gray/80 pl-0.5">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              value={localSearchTerm}
+              onChange={(e) => setLocalSearchTerm(e.target.value)}
+              placeholder="Search AI news, companies, people, topics..."
+              className="flex-grow ml-2.5 text-xs text-airbnb-charcoal placeholder-airbnb-gray bg-transparent focus:outline-none"
+            />
+            <button className="bg-airbnb-pink hover:bg-airbnb-pink-hover text-white rounded-full transition-all duration-300 flex items-center justify-center shrink-0 cursor-pointer ml-1.5 w-8.5 h-8.5 shadow-sm">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Category Buttons Row - Floating directly on the banner background */}
+          <div className="flex items-center space-x-3 overflow-x-auto no-scrollbar py-1 select-none">
+            {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
+              const isActive = subCategory === cat;
+              
+              const categories = {
+                all: {
+                  label: "AI News",
+                  icon: (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                    </svg>
+                  )
+                },
+                models: {
+                  label: "Models",
+                  icon: (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                    </svg>
+                  )
+                },
+                tools: {
+                  label: "Tools",
+                  icon: (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A1.5 1.5 0 0019.5 21l2-2a1.5 1.5 0 000-2.25l-5.83-5.83M11.42 15.17l2.42-2.42M11.42 15.17L6 10.25M13.84 12.75l2.42-2.42m-2.42 2.42L18.5 8M10.25 6l4.25 4.25M6 10.25a8.96 8.96 0 00-2.28 5.68 1.5 1.5 0 001.35 1.35 8.96 8.96 0 005.68-2.28L6 10.25z" />
+                    </svg>
+                  )
+                },
+                funding: {
+                  label: "Funding",
+                  icon: (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.22.03a4.5 4.5 0 003.552-1.124A4.502 4.502 0 0022.5 12c0-2.485-2.015-4.5-4.5-4.5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  )
+                },
+                research: {
+                  label: "Research",
+                  icon: (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                    </svg>
+                  )
+                }
+              };
+
+              const current = categories[cat];
+
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSubCategory(cat)}
+                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl border transition-all duration-200 cursor-pointer text-xs font-semibold ${
+                    isActive
+                      ? "border-airbnb-pink text-airbnb-pink bg-white shadow-[0_2px_8px_rgba(255,56,92,0.06)] ring-1 ring-airbnb-pink/10"
+                      : "border-airbnb-border-light/70 text-airbnb-charcoal hover:border-airbnb-pink/40 hover:text-airbnb-pink hover:shadow-[0_2px_6px_rgba(0,0,0,0.015)] bg-white"
+                  }`}
+                >
+                  <span className={isActive ? "text-airbnb-pink" : "text-airbnb-gray"}>
+                    {current.icon}
+                  </span>
+                  <span>{current.label}</span>
                 </button>
-              </div>
-            </div>
+              );
+            })}
+          </div>
 
-            {/* Airbnb-style Category Icon Tabs - Now at the bottom with border-t and justified layout */}
-            <div className="flex items-center justify-between pt-3.5 select-none border-t border-airbnb-border-light">
-              {(["all", "models", "tools", "funding", "research"] as const).map((cat) => {
-                const isActive = subCategory === cat;
-                
-                const categories = {
-                  all: {
-                    label: "All Signals",
-                    icon: (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF385C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="3" width="7" height="9" />
-                        <rect x="14" y="3" width="7" height="5" />
-                        <rect x="14" y="12" width="7" height="9" />
-                        <rect x="3" y="16" width="7" height="5" />
-                      </svg>
-                    )
-                  },
-                  models: {
-                    label: "Models",
-                    icon: (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                        <path d="M12 6v12" />
-                        <circle cx="12" cy="12" r="3" />
-                      </svg>
-                    )
-                  },
-                  tools: {
-                    label: "Tools",
-                    icon: (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="16 18 22 12 16 6" />
-                        <polyline points="8 6 2 12 8 18" />
-                        <line x1="14" y1="4" x2="10" y2="20" />
-                      </svg>
-                    )
-                  },
-                  funding: {
-                    label: "Funding",
-                    icon: (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="12" y1="1" x2="12" y2="23" />
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                      </svg>
-                    )
-                  },
-                  research: {
-                    label: "Research",
-                    icon: (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                      </svg>
-                    )
-                  }
-                };
-
-                const current = categories[cat];
-
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setSubCategory(cat)}
-                    className={`flex flex-col items-center space-y-1.5 pb-2.5 transition-all cursor-pointer group shrink-0 relative ${
-                      isActive
-                        ? "text-[#222222]"
-                        : "text-airbnb-gray opacity-65 hover:opacity-100 hover:text-[#222222]"
-                    }`}
-                  >
-                    <span className="transition-transform duration-200 group-hover:scale-110">
-                      {current.icon}
-                    </span>
-                    <span className={`text-[11px] font-bold tracking-tight ${isActive ? "text-[#222222] font-extrabold" : "text-airbnb-gray"}`}>
-                      {current.label}
-                    </span>
-                    {/* Animated Sliding Underline */}
-                    <span className={`absolute bottom-0 left-1 right-1 h-[2.5px] rounded-full transition-all duration-300 ${isActive ? "bg-airbnb-pink opacity-100 scale-x-100" : "bg-airbnb-pink/40 opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-50"}`} />
-                  </button>
-                );
-              })}
-            </div>
+          {/* Trending now Row - Floating directly on the banner background */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <span className="text-[11px] font-bold text-airbnb-gray uppercase tracking-wider">Trending now:</span>
+            {[
+              { label: "GPT-4o", term: "gpt-4o" },
+              { label: "Claude 3.5", term: "claude 3.5" },
+              { label: "OpenAI", term: "openai" },
+              { label: "AI Agents", term: "agents" },
+              { label: "Databricks", term: "databricks" }
+            ].map((tag) => (
+              <button
+                key={tag.label}
+                onClick={() => setLocalSearchTerm(tag.term)}
+                className="bg-white border border-airbnb-border-light hover:border-airbnb-pink/40 hover:text-airbnb-pink hover:shadow-[0_2px_6px_rgba(0,0,0,0.015)] px-3 py-1.5 rounded-full text-[11px] font-bold text-airbnb-charcoal flex items-center space-x-1.5 transition-all duration-200 cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-airbnb-pink" />
+                <span>{tag.label}</span>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Right Side: Infographic (Real-time AI Signal Flow Radar) */}
-        <div className="hidden md:flex items-center justify-end w-[45%] min-w-[260px] max-w-[420px] select-none pointer-events-none relative overflow-hidden -my-10 -mr-10 self-center">
-          <div className="w-full h-full transform scale-110 translate-y-2">
-            {renderInfographic()}
+        {/* Right Side: AI Signal Sphere & Floating Cards (Overlayed) */}
+        <div className="hidden lg:flex items-center justify-center w-[45%] min-w-[340px] max-w-[440px] relative h-[280px] select-none self-center">
+          {/* Sphere SVG backdrop */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-70">
+            <svg viewBox="0 0 300 300" className="w-full h-full text-airbnb-pink/20" fill="none" stroke="currentColor" strokeWidth="0.5">
+              <circle cx="150" cy="150" r="120" strokeWidth="0.5" strokeDasharray="2 4" />
+              <ellipse cx="150" cy="150" rx="120" ry="40" />
+              <ellipse cx="150" cy="150" rx="40" ry="120" />
+              <ellipse cx="150" cy="150" rx="120" ry="80" strokeWidth="0.5" strokeDasharray="2 2" />
+              <ellipse cx="150" cy="150" rx="80" ry="120" strokeWidth="0.5" strokeDasharray="2 2" />
+              <line x1="30" y1="150" x2="270" y2="150" />
+              <line x1="150" y1="30" x2="150" y2="270" />
+              
+              <circle cx="150" cy="150" r="140" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.5" />
+              
+              <circle cx="60" cy="80" r="3" fill="#FF385C" opacity="0.6" />
+              <circle cx="240" cy="90" r="4" fill="#FF385C" opacity="0.8" />
+              <circle cx="270" cy="180" r="3" fill="#FF385C" opacity="0.5" />
+              <circle cx="100" cy="240" r="3" fill="#FF385C" opacity="0.6" />
+            </svg>
+          </div>
+
+          {/* Floating Card 1: OpenAI raises $6.5B (Top Right) */}
+          <div className="absolute top-[8%] right-[2%] bg-white rounded-2xl p-3 shadow-[0_8px_24px_rgba(0,0,0,0.05)] border border-airbnb-border-light/60 flex items-center space-x-3 w-[220px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]">
+            <div className="p-2 bg-red-50 text-airbnb-pink rounded-xl flex-shrink-0">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.75A1.125 1.125 0 0110.125 16.5h3.75a1.125 1.125 0 011.125 1.125V21" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-[11px] font-bold text-airbnb-charcoal leading-snug">OpenAI raises $6.5B</h4>
+              <span className="text-[9px] text-airbnb-gray font-medium">2h ago</span>
+            </div>
+          </div>
+
+          {/* Floating Card 2: Anthropic launches Claude 3.5 (Middle Left) */}
+          <div className="absolute top-[40%] left-[-4%] bg-white rounded-2xl p-3 shadow-[0_8px_24px_rgba(0,0,0,0.05)] border border-airbnb-border-light/60 flex items-center space-x-3 w-[230px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]">
+            <div className="p-2 bg-orange-50 text-airbnb-pink rounded-xl flex-shrink-0">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-1.5a4.5 4.5 0 003.25-7.66l-.11-.12A7.37 7.37 0 0016.5 6.75h-1.5a5.85 5.85 0 01-3.25 1.62l-.11.13a4.47 4.47 0 00-1.14 3.75 4.5 4.5 0 003.75-1.14l.13-.11A5.85 5.85 0 0115.75 6h-1.5A7.38 7.38 0 006.75 16.5v1.5a6 6 0 017.38-5.84l.24-.29zM2.25 21.75a.75.75 0 001.06 0l3-3a.75.75 0 00-1.06-1.06l-3 3a.75.75 0 000 1.06z" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-[11px] font-bold text-airbnb-charcoal leading-snug">Anthropic launches Claude 3.5</h4>
+              <span className="text-[9px] text-airbnb-gray font-medium">4h ago</span>
+            </div>
+          </div>
+
+          {/* Floating Card 3: AI funding hits record high (Bottom Right) */}
+          <div className="absolute bottom-[8%] right-[4%] bg-white rounded-2xl p-3 shadow-[0_8px_24px_rgba(0,0,0,0.05)] border border-airbnb-border-light/60 flex items-center space-x-3 w-[220px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]">
+            <div className="p-2 bg-rose-50 text-airbnb-pink rounded-xl flex-shrink-0">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-[11px] font-bold text-airbnb-charcoal leading-snug">AI funding hits record high</h4>
+              <span className="text-[9px] text-airbnb-gray font-medium">6h ago</span>
+            </div>
           </div>
         </div>
 
